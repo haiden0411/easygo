@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/easygo-admin-web/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/easygo-brand-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/easygo-commons/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/easygo-eureka/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/easygo-pojo/src/main/java" charset="UTF-8" />
   </component>

@@ -10,6 +10,7 @@
         <module name="easygo-eureka" />
         <module name="easygo-admin-web" />
         <module name="easygo-brand-service" />
+        <module name="easygo-commons" />
         <module name="easygo-pojo" />
       </profile>
     </annotationProcessing>
@@ -18,6 +19,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="easygo-admin-web" options="-parameters" />
       <module name="easygo-brand-service" options="-parameters" />
+      <module name="easygo-commons" options="-parameters" />
       <module name="easygo-eureka" options="-parameters" />
       <module name="easygo-pojo" options="-parameters" />
     </option>

@@ -3,6 +3,12 @@ server:
 spring:
   application:
     name: easygo-admin-web
+  thymeleaf:
+    cache: false
+    encoding: utf-8
+    mode: LEGACYHTML5
+    prefix: classpath:/templates/
+    suffix: .html
 eureka:
   client:
     service-url:

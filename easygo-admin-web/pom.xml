@@ -54,6 +54,12 @@
             <artifactId>nekohtml</artifactId>
             <version>1.9.22</version>
         </dependency>
+        <dependency>
+            <groupId>com.haiden.easygo</groupId>
+            <artifactId>easygo-commons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
 
 
         <!--<dependency>
