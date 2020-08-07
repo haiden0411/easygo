@@ -23,4 +23,13 @@ public interface BrandClient {
 
     @RequestMapping("/brand_getBrandById")
     public Brand getBrandById(@RequestParam Integer id);
+
+    @RequestMapping("/brand_update")
+    public  int updateBrand(@RequestBody Brand brand);
+
+    @RequestMapping("/brand_deleteById")
+    public int deleteBrandById(@RequestParam Integer id);
+
+    @RequestMapping("/brand_deleteSome")
+    public int deleteSome(@RequestParam String ids);
 }

@@ -43,4 +43,9 @@ public class BrandController {
     public int deleteBrandById(@RequestParam Integer id){
         return brandService.deleteBrandById(id);
     }
+
+    @RequestMapping("/brand_deleteSome")
+    public int deleteSome(@RequestParam String ids){
+        return brandService.deleteSome(ids);
+    }
 }

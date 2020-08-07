@@ -15,4 +15,5 @@ public interface BrandService {
     public  int updateBrand(Brand brand);
     public Brand getBrandById(Integer id);
     public int deleteBrandById(Integer id);
+    public int deleteSome(String ids);
 }

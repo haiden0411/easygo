@@ -3,14 +3,12 @@ package com.easygo.controller;
 import com.easygo.api.BrandClient;
 import com.easygo.pojo.Brand;
 import com.easygo.utils.MessageResults;
+import jdk.nashorn.internal.ir.BreakableNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -55,5 +53,45 @@ public class BrandController {
     public Brand getBrandById(Integer id){
         return  brandClient.getBrandById(id);
     }
+
+    @RequestMapping("/brand_update")
+    @ResponseBody
+    public  MessageResults updateBrand(Brand brand){
+        int count = brandClient.updateBrand(brand);
+        MessageResults results = null;
+        if (count>0) {
+            results = new MessageResults(200,"更新成功");
+        }else {
+            results = new MessageResults(500,"更新失败");
+        }
+        return results;
+    };
+
+    @RequestMapping("/brand_deleteById")
+    @ResponseBody
+    public MessageResults deleteBrandById(Integer id){
+        int count = brandClient.deleteBrandById(id);
+        MessageResults results = null;
+        if (count>0) {
+            results = new MessageResults(200,"删除成功");
+        }else {
+            results = new MessageResults(500,"删除失败");
+        }
+        return results;
+    };
+
+    @RequestMapping("/brand_deleteSome")
+    @ResponseBody
+    public MessageResults deleteBrandSome(String ids){
+        int count = brandClient.deleteSome(ids);
+        MessageResults results = null;
+        if (count>0) {
+            results = new MessageResults(200,"批量删除成功");
+        }else {
+            results = new MessageResults(500,"批量删除失败");
+        }
+        return results;
+    };
+
 
 }

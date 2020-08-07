@@ -2,6 +2,7 @@ package com.easygo.mapper;
 
 import com.easygo.pojo.Brand;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,4 +18,5 @@ public interface BrandMapper {
     public  int updateBrand(Brand brand);
     public Brand getBrandById(Integer id);
     public int deleteBrandById(Integer id);
+    public int deleteSome(@Param("ids") String ids);
 }

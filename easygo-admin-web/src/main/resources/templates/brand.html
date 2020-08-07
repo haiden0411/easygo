@@ -38,6 +38,73 @@
 				$("#update_name").val(result.name);
 			})
 		}
+		function updateBrand() {
+			var data = $("#updateForm").serialize();
+			$.post("brand_update",data,function (result) {
+				if(result.code ==200){
+					alert(result.message)
+					location.href="brand_getBrands"
+				}else{
+					alert(result.message);
+				}
+			})
+		}
+		function deleteBrand(id) {
+			if (confirm("确定要删除我的吗")){
+				$.getJSON("brand_deleteById",{"id":id},function (result) {
+					//alert(JSON.stringify(result))
+					if(result.code ==200){
+						alert(result.message)
+						location.href="brand_getBrands"
+					}else{
+						alert(result.message);
+					}
+				})
+			}
+		}
+
+		function chAll(ck) {
+			$("[name='child']").prop("checked",$(ck).prop("checked"));
+		}
+
+		function ckChild() {
+			var totalCount = $("[name='child']").length;
+			var checkCount = $("[name='child']:checked").length;
+			if(totalCount==checkCount){
+				$("#selall").prop("checked",true);
+			}else {
+				$("#selall").prop("checked",false);
+			}
+		}
+
+		function deleteSome() {
+			var ids = new Array();
+			var childs = $("[name='child']:checked");
+			if(childs.length>0){
+				for (var  i = 0; i < childs.length ; i++) {
+					var id = childs[i].value;
+					ids.push(id);
+				}
+				$.ajax({
+					url:"brand_deleteSome",
+					data:"ids="+ids,
+					dataType:"json",
+					type:"post",
+					success:function (result) {
+						if(result.code ==200){
+							alert(result.message)
+							location.href="brand_getBrands"
+						}else{
+							alert(result.message);
+						}
+					}
+
+				});
+			}else{
+				alert("你他娘的选择一个啊~")
+			}
+		}
+
 	</script>
 
 </head>
@@ -57,7 +124,7 @@
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#addModal" ><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>           
+                                        <button type="button" class="btn btn-default" title="批量删除" onclick="deleteSome();" ><i class="fa fa-trash-o"></i> 批量删除</button>
                                         <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
                                     </div>
                                 </div>
@@ -74,7 +141,7 @@
 			                      <thead>
 			                          <tr>
 			                              <th class="" style="padding-right:0px">
-			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue">
+			                                  <input id="selall" type="checkbox" onclick="chAll(this)" class="icheckbox_square-blue">
 			                              </th> 
 										  <th class="sorting_asc">品牌ID</th>
 										  <th class="sorting">品牌名称</th>	
@@ -85,12 +152,12 @@
 			                      </thead>
 			                      <tbody>
 			                          <tr th:each="brand:${brands}">
-			                              <td><input  type="checkbox" ></td>			                              
+			                              <td><input th:value="${brand.id}" type="checkbox" name="child" onclick="ckChild()" ></td>
 				                          <td th:text="${brand.id}">1</td>
 										  <td th:text="${brand.name}">联想</td>
 		                                  <td th:text="${brand.first_char}">L</td>
 		                                  <td class="text-center">                                           
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" th:onclick="|goUpdate(${brand.id});|" >更新</button>                                           	  <button type="button" class="btn bg-red btn-xs" data-toggle="modal" data-target="#editModal"  >删除</button>
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" th:onclick="|goUpdate(${brand.id});|" >更新</button>                                           	  <button type="button" class="btn bg-red btn-xs" data-toggle="modal"  th:onclick="|deleteBrand(${brand.id});|" >删除</button>
 		                                  </td>
 			                          </tr>
 
@@ -109,7 +176,8 @@
                     <!-- /.box-body -->
          
 <!-- 编辑窗口 -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <form action="#" method="post" id="updateForm">
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" >
 	<div class="modal-content">
 		<div class="modal-header">
@@ -135,12 +203,14 @@
 			 </table>				
 		</div>
 		<div class="modal-footer">						
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">更新</button>
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" onclick="updateBrand()">更新</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 	  </div>
 	</div>
 </div>
+  </form>
+  <!--新增表单-->
   <form id="addForm" action="#" method="post">
   <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog" >

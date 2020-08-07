@@ -19,5 +19,9 @@
         update tb_brand set del = 1 where id = #{id}
     </update>
 
+    <update id="deleteSome">
+        update tb_brand set del = 1 where id in (${ids})
+    </update>
+
 </mapper>
     
