@@ -1,6 +1,7 @@
 package com.easygo.api;
 
 import com.easygo.pojo.Brand;
+import com.easygo.utils.PageUtils;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,4 +33,7 @@ public interface BrandClient {
 
     @RequestMapping("/brand_deleteSome")
     public int deleteSome(@RequestParam String ids);
+
+    @RequestMapping("/brand_page")
+    public PageUtils getBrandByPage(@RequestParam(defaultValue = "1",required = false) Integer pageIndex, @RequestParam(defaultValue = "5",required = false) Integer pageSize);
 }

@@ -3,6 +3,7 @@ package com.easygo.controller;
 import com.easygo.api.BrandClient;
 import com.easygo.pojo.Brand;
 import com.easygo.utils.MessageResults;
+import com.easygo.utils.PageUtils;
 import jdk.nashorn.internal.ir.BreakableNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -22,6 +23,20 @@ import java.util.List;
 public class BrandController {
     @Autowired
     BrandClient brandClient;
+
+
+    @RequestMapping("/brand_page")
+    public String getBrandByPage(@RequestParam(defaultValue = "1",required = false) Integer pageIndex, @RequestParam(defaultValue = "5",required = false) Integer pageSize,Model model){
+        PageUtils pageUtils = brandClient.getBrandByPage(pageIndex, pageSize);
+        model.addAttribute("pageUtils",pageUtils);
+        return "brand";
+    }
+
+    /**
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping("/brand_getBrands")
     public String getBrands(Model model){
         List<Brand> brands = brandClient.getBrands();
@@ -92,6 +107,5 @@ public class BrandController {
         }
         return results;
     };
-
 
 }

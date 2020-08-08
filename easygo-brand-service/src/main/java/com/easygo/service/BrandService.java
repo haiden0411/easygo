@@ -3,6 +3,7 @@ package com.easygo.service;
 import com.easygo.pojo.Brand;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Author：胡灯
@@ -16,4 +17,8 @@ public interface BrandService {
     public Brand getBrandById(Integer id);
     public int deleteBrandById(Integer id);
     public int deleteSome(String ids);
+
+    public int getTotalCount();
+    //查询每页的查询数据
+    public List<Brand> getPageBrands(Map<String,Object> maps);
 }

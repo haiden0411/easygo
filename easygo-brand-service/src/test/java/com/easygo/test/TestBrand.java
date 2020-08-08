@@ -9,6 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Author：胡灯
@@ -52,5 +55,23 @@ public class TestBrand {
         int count = mapper.deleteBrandById(45);
         System.out.println(count > 0 ? "删除成功" : "删除失败");
     }
+
+    @Test
+    public void testCount(){
+        int totalCount = mapper.getTotalCount();
+        System.out.println("total:"+totalCount);
+    }
+
+    @Test
+    public void testPage(){
+        int pageIndex = 1;
+        int pageSize = 5;
+        Map<String,Object> param = new HashMap<>();
+        param.put("pageStart",(pageIndex-1)*pageSize);
+        param.put("pageSize",pageSize);
+        List<Brand> pageBrands = mapper.getPageBrands(param);
+        pageBrands.forEach(System.out::println);
+    }
+
 
 }

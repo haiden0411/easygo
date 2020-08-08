@@ -151,7 +151,7 @@
 			                          </tr>
 			                      </thead>
 			                      <tbody>
-			                          <tr th:each="brand:${brands}">
+			                          <tr th:each="brand:${pageUtils.recoreds}">
 			                              <td><input th:value="${brand.id}" type="checkbox" name="child" onclick="ckChild()" ></td>
 				                          <td th:text="${brand.id}">1</td>
 										  <td th:text="${brand.name}">联想</td>
@@ -163,15 +163,25 @@
 
 			                      </tbody>
 			                  </table>
-			                  <!--数据列表/-->                        
-							  
+			                  <!--数据列表/-->
+							<!-- 分页组件 -->
+							<div class="row">
+								<div class="col-sm-6"><div class="dataTables_paginate paging_bootstrap" id="sample-table_paginate">
+									<ul class="pagination">
+										<li class="prev"><a th:href="|brand_page?pageIndex=1&pageSize=${pageUtils.pageSize}|">首页</a></li>
+										<li class="prev" th:if="${pageUtils.pageIndex>1}"><a th:href="|brand_page?pageIndex=${pageUtils.pageIndex-1}&pageSize=${pageUtils.pageSize}|">上一页</a></li>
+										<li class="prev" th:if="${pageUtils.pageIndex<pageUtils.pageCount}"><a th:href="|brand_page?pageIndex=${pageUtils.pageIndex+1}&pageSize=${pageUtils.pageSize}|">下一页</a></li>
+										<li class="prev"><a th:href="|brand_page?pageIndex=${pageUtils.pageCount}&pageSize=${pageUtils.pageSize}|">尾页</a></li>
+										<li class="next"><a href="#" th:text="|当前${pageUtils.pageIndex}/${pageUtils.pageCount}页|">[]</a></li>
+										<li class="next"><a href="#" th:text="|共${pageUtils.totalCount}条|">[]</a></li>
+									</ul>
+								</div>
+								</div>
+							</div>
+							<!-- 分页组件 -->
 							 
                         </div>
                         <!-- 数据表格 /-->
-                        
-                        
-                        
-                        
                      </div>
                     <!-- /.box-body -->
          
