@@ -56,7 +56,6 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public List<Brand> getPageBrands(Map<String, Object> params) {
-        System.out.println("params:"+params);
         return brandMapper.getPageBrands(params);
     }
 }

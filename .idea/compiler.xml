@@ -7,16 +7,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="easygo-eureka" />
-        <module name="easygo-admin-web" />
-        <module name="easygo-brand-service" />
         <module name="easygo-commons" />
         <module name="easygo-pojo" />
+        <module name="easygo-admin-web" />
+        <module name="easygo-brand-service" />
+        <module name="easygo-admin-service" />
+        <module name="easygo-eureka" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="easygo-admin-service" options="-parameters" />
       <module name="easygo-admin-web" options="-parameters" />
       <module name="easygo-brand-service" options="-parameters" />
       <module name="easygo-commons" options="-parameters" />
