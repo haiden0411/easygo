@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>易购商城运营商管理后台</title>
@@ -17,31 +17,63 @@
 	media="all">
 <link rel="stylesheet" type="text/css" href="media/css/verify.css">
 <script type="text/javascript" src="media/js/jquery.min.js"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script type="text/javascript">
+	var ip=""; //所属的IP
+	var cityAndAddress=""; //登录的地区
+	$(function () {
+		//获取IP,页面加载的时候自动执行
+		ip=returnCitySN["cip"];
+		cityAndAddress =returnCitySN['cname']
+		//alert("ip:"+ip+",adrress:"+cityAndAddress)
+		$("#ip1").val(ip);
+		$("#cy1").val(cityAndAddress);
+	});
+	function adminLogin() {
+		var data = $("#loginForm").serialize();
+		$.ajax({
+			url:"admin_login",
+			data:data,
+			type:"post",
+			dataType:"json",
+			success:function (result) {
+				//alert(JSON.stringify(result));
+				if (result.code==200){
+					location.href="page_index";
+				}else if(result.code==403){
+					alert(result.message);
+					window.location.reload();
+				}else{
+					alert("账号或密码错误！！")
+					window.location.reload();
+				}
 
+			}
+		});
+	}
+</script>
 </head>
 <body class="layui-bg-black">
 	<div class="layui-canvs"></div>
 	<div class="layui-layout layui-layout-login">
-		<form action="login.do" method="post">
+		<form action="#" method="post" id="loginForm">
 			<h1>
 				<strong>易购商城运营商管理后台</strong> <em></em>
 			</h1>
 			<div class="layui-user-icon larry-login">
-				<input type="text" placeholder="账号" class="login_txtbx" name="no"
-					value="admin" />
+				<input type="text" placeholder="账号" class="login_txtbx" name="username"/>
 			</div>
 			<div class="layui-pwd-icon larry-login">
-				<input type="password" placeholder="密码" name="pass" value="admin"
-					class="login_txtbx" />
+				<input type="password" placeholder="密码" name="password" class="login_txtbx" />
 			</div>
-			<input type="hidden" name="ip" id="ip1"> <input type="hidden"
-				name="city" id="cy1">
+			<input type="hidden" name="ip" id="ip1">
+			<input type="hidden" name="city" id="cy1">
 			<div class="feri-code">
 				<div id="mpanel4"></div>
 			</div>
 			<div class="layui-submit larry-login">
-				<input type="submit" id="btn1" disabled="disabled" value="立即登陆"
-					class="submit_btn" />
+				<input type="button" id="btn1" disabled="disabled" value="立即登陆"
+					class="submit_btn" onclick="adminLogin();" />
 			</div>
 		</form>
 		<div class="layui-login-text">

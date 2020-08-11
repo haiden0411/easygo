@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easygo.mapper.LoginLogMapper">
+    <select id="getMyLoginLog" resultType="com.easygo.pojo.LoginLog">
+        select * from tb_loginlog where no = #{username} order by createtime desc limit 0,10
+    </select>
+    <insert id="addLoginLog">
+        insert into tb_loginlog values (null,#{ip},#{no},now(),#{location})
+    </insert>
+
+</mapper>
+    
