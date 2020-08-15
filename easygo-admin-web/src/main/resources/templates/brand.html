@@ -21,8 +21,8 @@
 				dataType:"json",
 				success:function (result) {
 					if(result.code ==200){
-						alert(result.message)
-						location.href="brand_getBrands"
+						alert(result.message);
+						location.href="brand_getBrands";
 					}else{
 						alert(result.message);
 					}
@@ -169,9 +169,9 @@
 								<div class="col-sm-6"><div class="dataTables_paginate paging_bootstrap" id="sample-table_paginate">
 									<ul class="pagination">
 										<li class="prev"><a th:href="|brand_page?pageIndex=1&pageSize=${pageUtils.pageSize}|">首页</a></li>
-										<li class="prev" th:if="${pageUtils.pageIndex>1}"><a th:href="|brand_page?pageIndex=${pageUtils.pageIndex-1}&pageSize=${pageUtils.pageSize}|">上一页</a></li>
+										<!--<li class="prev" th:if="${pageUtils.pageIndex>1}"><a th:href="|brand_page?pageIndex=${pageUtils.pageIndex-1}&pageSize=${pageUtils.pageSize}|">上一页</a></li>-->
 										<li class="next" th:each="num:${pageUtils.numbers}" th:class="${pageUtils.pageIndex==num}?active"><a th:href="|brand_page?pageIndex=${num}&pageSize=${pageUtils.pageSize}|" th:text="${num}">[]</a></li>
-										<li class="prev" th:if="${pageUtils.pageIndex<pageUtils.pageCount}"><a th:href="|brand_page?pageIndex=${pageUtils.pageIndex+1}&pageSize=${pageUtils.pageSize}|">下一页</a></li>
+										<!--<li class="prev" th:if="${pageUtils.pageIndex<pageUtils.pageCount}"><a th:href="|brand_page?pageIndex=${pageUtils.pageIndex+1}&pageSize=${pageUtils.pageSize}|">下一页</a></li>-->
 										<li class="prev"><a th:href="|brand_page?pageIndex=${pageUtils.pageCount}&pageSize=${pageUtils.pageSize}|">尾页</a></li>
 										<li class="next"><a href="#" th:text="|当前${pageUtils.pageIndex}/${pageUtils.pageCount}页|">[]</a></li>
 										<li class="next"><a href="#" th:text="|共${pageUtils.totalCount}条|">[]</a></li>

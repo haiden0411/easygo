@@ -12,12 +12,14 @@
         <module name="easygo-admin-web" />
         <module name="easygo-brand-service" />
         <module name="easygo-admin-service" />
+        <module name="easygo-ad-service" />
         <module name="easygo-eureka" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="easygo-ad-service" options="-parameters" />
       <module name="easygo-admin-service" options="-parameters" />
       <module name="easygo-admin-web" options="-parameters" />
       <module name="easygo-brand-service" options="-parameters" />
