@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="easygo-commons" />
         <module name="easygo-pojo" />
+        <module name="easygo-protal-web" />
         <module name="easygo-admin-web" />
         <module name="easygo-brand-service" />
         <module name="easygo-admin-service" />
@@ -26,6 +27,7 @@
       <module name="easygo-commons" options="-parameters" />
       <module name="easygo-eureka" options="-parameters" />
       <module name="easygo-pojo" options="-parameters" />
+      <module name="easygo-protal-web" options="-parameters" />
     </option>
   </component>
 </project>

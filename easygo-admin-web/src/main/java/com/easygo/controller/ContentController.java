@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Author：胡灯
  * Date：2020-08-12 22:39
@@ -28,5 +31,19 @@ public class ContentController {
         PageUtils pageUtils = client.getContent_page(pageIndex, pageSize);
         model.addAttribute("pageUtils",pageUtils);
         return "content";
+    }
+
+    @RequestMapping("/content_updateStatus")
+    @ResponseBody
+    public MessageResults updateStatus(Integer id,Integer status){
+        MessageResults results = null;
+
+        Integer count = client.updateStatus(id, status);
+        if (count>0) {
+            results = new MessageResults(200,"修改成功");
+        }else {
+            results = new MessageResults(500,"修改失败");
+        }
+        return results;
     }
 }

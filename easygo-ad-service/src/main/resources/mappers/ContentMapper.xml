@@ -25,4 +25,12 @@
        </association>
     </resultMap>
 
+    <select id="getContentsByCategoryId" resultType="com.easygo.pojo.Content">
+        select * from tb_content where del = 0 and status = 1 and category_id = #{categoryId} order by sort_order
+    </select>
+
+    <update id="updateStatus">
+        update tb_content set status = #{status} where id = #{id}
+    </update>
+
 </mapper>

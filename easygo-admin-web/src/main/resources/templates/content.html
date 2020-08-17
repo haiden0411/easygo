@@ -14,6 +14,33 @@
     <link rel="stylesheet" href="../css/style.css">
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		function updateStatus(id,btn) {
+			var status = 0;
+			var text = $(btn).text();
+			if (text == "有效") {
+				status = 1;
+			}
+			if (confirm("确定要修改为" + text + "吗")) {
+				$.ajax({
+					url:"content_updateStatus",
+					type:"post",
+					dataType:"json",
+					data:"id="+id+"&status="+status,
+					success:function (result) {
+						if (result.code == 200) {
+							alert("修改成功");
+							$(btn).parent().prev().text(text);
+							$(btn).text(text=="有效"?"无效":"有效");
+						}else{
+							alert("修改失败");
+						}
+					}
+
+				})
+			}
+		}
+	</script>
     
 </head>
 
@@ -79,7 +106,7 @@
 									      <td th:text="${content.status==1?'有效':'无效'}">有效</td>
 		                                  <td class="text-center">                                           
 		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal">修改</button>
-											  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" th:text="${content.status==1?'有效':'无效'}">无效</button>
+											  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" th:onclick="|updateStatus(${content.id},this);|" th:text="${content.status==1?'无效':'有效'}">无效</button>
 										  </td>
 			                          </tr>
 			                      </tbody>

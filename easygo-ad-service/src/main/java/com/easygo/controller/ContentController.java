@@ -26,6 +26,7 @@ public class ContentController {
     @Autowired
     ContentService contentService;
 
+    //分页
     @RequestMapping("/content_page")
     public PageUtils<Content> getContent_page(@RequestParam(defaultValue = "1",required = false) Integer pageIndex, @RequestParam(defaultValue = "5",required = false) Integer pageSize){
         Map<String, Object> params = new HashMap<>();
@@ -38,5 +39,21 @@ public class ContentController {
         PageUtils pageUtils = new PageUtils(pageIndex,pageSize,totalCount,categoryPages);
         return pageUtils;
     }
+
+    //获取某个Id下面的所有广告
+    @RequestMapping("/content_getContentsByCategoryId")
+    public List<Content> getContentsByCategoryId(@RequestParam Integer categoryId){
+        return contentService.getContentsByCategoryId(categoryId);
+    }
+
+    @RequestMapping("/content_updateStatus")
+    public Integer updateStatus(@RequestParam Integer id,@RequestParam Integer status){
+        Map<String,Object> maps = new HashMap<>();
+        maps.put("id",id);
+        maps.put("status",status);
+        return contentService.updateStatus(maps);
+    }
+
+
 
 }

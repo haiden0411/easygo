@@ -18,4 +18,7 @@ public interface ContentClient {
     @RequestMapping("/content_page")
     public PageUtils<Content> getContent_page(@RequestParam(defaultValue = "1",required = false) Integer pageIndex, @RequestParam(defaultValue = "5",required = false) Integer pageSize);
 
+    @RequestMapping("/content_updateStatus")
+    public Integer updateStatus(@RequestParam Integer id,@RequestParam Integer status);
+
 }

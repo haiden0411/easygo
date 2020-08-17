@@ -28,4 +28,14 @@ public class ContentServiceImpl implements ContentService {
     public List<Content> getContents(Map<String, Object> map) {
         return contentMapper.getContents(map);
     }
+
+    @Override
+    public List<Content> getContentsByCategoryId(Integer categoryId) {
+        return contentMapper.getContentsByCategoryId(categoryId);
+    }
+
+    @Override
+    public Integer updateStatus(Map<String, Object> map) {
+        return contentMapper.updateStatus(map);
+    }
 }

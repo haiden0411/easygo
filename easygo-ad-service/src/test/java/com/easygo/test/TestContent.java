@@ -1,6 +1,8 @@
 package com.easygo.test;
 
 import com.easygo.mapper.ContentCategoryMapper;
+import com.easygo.mapper.ContentMapper;
+import com.easygo.pojo.Content;
 import org.assertj.core.util.Maps;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,6 +24,10 @@ import java.util.Map;
 public class TestContent {
     @Resource
     ContentCategoryMapper mapper;
+
+    @Resource
+    ContentMapper contentMapper;
+
     @Test
     public void testdel(){
         int count = mapper.delContentCategory(1);
@@ -34,7 +41,12 @@ public class TestContent {
         map.put("name","%"+key+"%");
         Integer totalCount = mapper.getTotalCount(map);
         System.out.println(totalCount);
+    }
 
+    @Test
+    public void testgetContentByid(){
+        List<Content> contents = contentMapper.getContentsByCategoryId(1);
+        contents.forEach(System.out::println);
 
     }
 }
