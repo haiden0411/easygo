@@ -3,7 +3,6 @@ package com.easygo.test;
 import com.easygo.mapper.ContentCategoryMapper;
 import com.easygo.mapper.ContentMapper;
 import com.easygo.pojo.Content;
-import org.assertj.core.util.Maps;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,6 +1,5 @@
 package com.easygo.test;
 
-import com.easygo.BrandServiceApp;
 import com.easygo.mapper.BrandMapper;
 import com.easygo.pojo.Brand;
 import org.junit.Test;
