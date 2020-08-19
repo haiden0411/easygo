@@ -7,6 +7,7 @@ import com.easygo.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,6 +54,13 @@ public class ContentController {
         maps.put("status",status);
         return contentService.updateStatus(maps);
     }
+
+    @RequestMapping("/content_add")
+    public Integer addContent(@RequestBody Content content){
+        Integer count = contentService.addContent(content);
+        return count;
+    }
+
 
 
 

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 /**
  * Author：胡灯
  * Date：2020-08-12 22:38
@@ -29,6 +31,8 @@ public interface ContentCategoryClient {
     @RequestMapping("/contentCategory_add")
     public int addContentCategory(@RequestBody ContentCategory contentCategory);
 
+    @RequestMapping("/contentCategory_list")
+    public List<ContentCategory> getContentCategorys();
 
 
 }

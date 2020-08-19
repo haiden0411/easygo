@@ -21,4 +21,7 @@ public interface ContentClient {
     @RequestMapping("/content_updateStatus")
     public Integer updateStatus(@RequestParam Integer id,@RequestParam Integer status);
 
+    @RequestMapping("/content_add")
+    public Integer addContent(@RequestBody Content content);
+
 }

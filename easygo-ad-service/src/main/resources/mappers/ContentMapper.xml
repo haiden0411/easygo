@@ -33,4 +33,8 @@
         update tb_content set status = #{status} where id = #{id}
     </update>
 
+    <insert id="addContent">
+        insert into tb_content values (null,#{contentCategory.id},#{title},#{url},#{pic},#{status},#{sort_order},0)
+    </insert>
+
 </mapper>

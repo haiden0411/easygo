@@ -48,4 +48,9 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
     public ContentCategory getById(Integer id) {
         return mapper.getById(id);
     }
+
+    @Override
+    public List<ContentCategory> getContentCategorys() {
+        return mapper.getContentCategorys();
+    }
 }

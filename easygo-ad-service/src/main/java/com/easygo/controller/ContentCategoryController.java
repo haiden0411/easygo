@@ -62,5 +62,13 @@ public class ContentCategoryController {
         return pageUtils;
     }
 
+    //查询有效的广告分类
+    @RequestMapping("/contentCategory_list")
+    public List<ContentCategory> getContentCategorys(){
+        return categoryService.getContentCategorys();
+    }
+
+
+
 
 }

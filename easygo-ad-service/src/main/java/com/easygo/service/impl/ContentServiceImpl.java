@@ -38,4 +38,9 @@ public class ContentServiceImpl implements ContentService {
     public Integer updateStatus(Map<String, Object> map) {
         return contentMapper.updateStatus(map);
     }
+
+    @Override
+    public Integer addContent(Content content) {
+        return contentMapper.addContent(content);
+    }
 }

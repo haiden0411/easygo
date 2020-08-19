@@ -28,5 +28,9 @@
         select * from tb_content_category where del =0 and name like #{name} order by id desc limit #{pageStart},#{pageSize}
     </select>
 
+    <select id="getContentCategorys" resultType="com.easygo.pojo.ContentCategory">
+        select * from tb_content_category where del = 0
+    </select>
+
 </mapper>
     

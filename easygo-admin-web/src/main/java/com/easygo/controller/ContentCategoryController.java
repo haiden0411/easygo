@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 /**
  * Author：胡灯
  * Date：2020-08-12 22:39
@@ -74,5 +76,12 @@ public class ContentCategoryController {
             results = new MessageResults(500,"新增失败");
         }
         return results;
+    }
+
+    @RequestMapping("/contentCategory_list")
+    @ResponseBody
+    public List<ContentCategory> getContentCategorys(){
+        List<ContentCategory> contentCategorys = client.getContentCategorys();
+        return contentCategorys;
     }
 }

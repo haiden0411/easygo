@@ -18,4 +18,5 @@ public interface ContentMapper {
     public List<Content> getContents(Map<String,Object> map);
     public List<Content> getContentsByCategoryId(Integer categoryId);
     public Integer updateStatus(Map<String,Object> map);
+    public Integer addContent(Content content);
 }

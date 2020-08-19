@@ -18,4 +18,6 @@ public interface ContentCategoryService {
     public int delContentCategory(Integer id);
     public ContentCategory getById(Integer id);
 
+    public List<ContentCategory> getContentCategorys();
+
 }

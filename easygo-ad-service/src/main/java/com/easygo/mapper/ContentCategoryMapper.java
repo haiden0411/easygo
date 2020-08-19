@@ -1,5 +1,6 @@
 package com.easygo.mapper;
 
+import com.easygo.pojo.Content;
 import com.easygo.pojo.ContentCategory;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,4 +20,7 @@ public interface ContentCategoryMapper {
     public int updateContentCategory(ContentCategory category);
     public int delContentCategory(Integer id);
     public ContentCategory getById(Integer id);
+
+    //查询所有的广告分类
+    public List<ContentCategory> getContentCategorys();
 }

@@ -2,6 +2,7 @@ package com.easygo.controller;
 
 import com.easygo.api.ContentCategoryClient;
 import com.easygo.api.ContentClient;
+import com.easygo.pojo.Content;
 import com.easygo.pojo.ContentCategory;
 import com.easygo.utils.MessageResults;
 import com.easygo.utils.PageUtils;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,9 +42,22 @@ public class ContentController {
 
         Integer count = client.updateStatus(id, status);
         if (count>0) {
-            results = new MessageResults(200,"修改成功");
+            results = new MessageResults(200,"更新成功");
         }else {
-            results = new MessageResults(500,"修改失败");
+            results = new MessageResults(500,"更新失败");
+        }
+        return results;
+    }
+
+    @RequestMapping("/content_add")
+    @ResponseBody
+    public MessageResults addContent(Content content){
+        MessageResults results = null;
+        Integer count = client.addContent(content);
+        if (count>0) {
+            results = new MessageResults(200,"新增成功");
+        }else {
+            results = new MessageResults(500,"新增失败");
         }
         return results;
     }
