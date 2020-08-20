@@ -17,4 +17,9 @@ public interface ContentService {
     public List<Content> getContentsByCategoryId(Integer categoryId);
     public Integer updateStatus(Map<String,Object> map);
     public Integer addContent(Content content);
+
+    public Content getContentById(Integer id);
+    public Integer updateContent(Content content);
 }
+
+

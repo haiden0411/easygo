@@ -43,4 +43,14 @@ public class ContentServiceImpl implements ContentService {
     public Integer addContent(Content content) {
         return contentMapper.addContent(content);
     }
+
+    @Override
+    public Content getContentById(Integer id) {
+        return contentMapper.getContentById(id);
+    }
+
+    @Override
+    public Integer updateContent(Content content) {
+        return contentMapper.updateContent(content);
+    }
 }

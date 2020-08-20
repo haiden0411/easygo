@@ -36,5 +36,13 @@
     <insert id="addContent">
         insert into tb_content values (null,#{contentCategory.id},#{title},#{url},#{pic},#{status},#{sort_order},0)
     </insert>
+    
+    <select id="getContentById" resultMap="ContentMap">
+         select c.*,t.`name` from tb_content c,tb_content_category t where c.category_id = t.id  and c.id = #{id}
+    </select>
+
+    <update id="updateContent">
+        update tb_content set title = #{title},url=#{url},pic=#{pic},category_id = #{contentCategory.id},status = #{status},sort_order=#{sort_order} where id = #{id}
+    </update>
 
 </mapper>

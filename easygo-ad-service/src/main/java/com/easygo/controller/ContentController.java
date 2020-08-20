@@ -61,7 +61,15 @@ public class ContentController {
         return count;
     }
 
-
+    @RequestMapping("/content_getContentById")
+    public Content getContentById(@RequestParam Integer id){
+        Content content = contentService.getContentById(id);
+        return content;
+    }
+    @RequestMapping("/content_update")
+    public Integer updateContent(@RequestBody Content content){
+        return contentService.updateContent(content);
+    }
 
 
 }
