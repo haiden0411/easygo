@@ -1,5 +1,5 @@
 server:
-  port: 9004
+  port: 9006
 mybatis:
   type-aliases-package: com.easygo.pojo
   mapper-locations: classpath:/mappers/*.xml
@@ -26,12 +26,12 @@ spring:
       min-evictable-idle-time-millis: 300000
       driver-class-name: com.mysql.cj.jdbc.Driver
   application:
-    name: easygo-ad-service
+    name: easygo-specification-service
 eureka:
   client:
     service-url:
       defaultZone: http://192.168.1.108:9001/eureka
   instance:
     prefer-ip-address: true
-    ip-address: 192.168.1.107
-    instance-id: easygo-ad-service-9004
+    ip-address: 127.0.0.1
+    instance-id: easygo-specification-service-9006
