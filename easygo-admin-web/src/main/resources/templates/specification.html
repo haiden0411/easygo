@@ -22,7 +22,6 @@
 
         function addSpecification() {
             var data = $("#addForm").serialize();
-            alert("data:"+data);
             $.ajax({
                 url: "specification_add",
                 data: data,
@@ -39,9 +38,63 @@
             })
         }
 
-        function specification_add_tr() {
-            $("#specification_tbody_add").append("<tr><td><input class=\"form-control\" name=\"option_name\" placeholder=\"规格选项\"></td><td><input class=\"form-control\" name=\"orders\" placeholder=\"排序\"></td><td><button type=\"button\" class=\"btn btn-default\" title=\"删除\"><i class=\"fa fa-trash-o\"></i>删除</button></td></tr>");
+        function addOptions_add() {
+            $("#specification_tbody_add").append("<tr><td><input class=\"form-control\" name=\"option_name\" placeholder=\"规格选项\"></td><td><input class=\"form-control\" name=\"orders\" placeholder=\"排序\"></td><td><button type=\"button\" class=\"btn btn-default\" title=\"删除\" onclick=\"deleteoption_add(this)\"><i class=\"fa fa-trash-o\"></i>删除</button></td></tr>");
         }
+
+        function addOptions_update() {
+            $("#specification_tbody_update").append("<tr><td><input class=\"form-control\" name=\"option_name\" placeholder=\"规格选项\"></td><td><input class=\"form-control\" name=\"orders\" placeholder=\"排序\"></td><td><button type=\"button\" class=\"btn btn-default\" title=\"删除\" onclick=\"deleteoption_update(this)\"><i class=\"fa fa-trash-o\"></i>删除</button></td></tr>");
+        }
+
+        function deleteoption_add (btn) {
+            if ( $("#specification_tbody_add").find("tr").length>1){
+                $(btn).parent().parent().remove();
+            }else{
+                alert("不能再删除了，至少留一个");
+            }
+        }
+
+        function deleteoption_update (btn) {
+            if ( $("#specification_tbody_update").find("tr").length>1){
+                $(btn).parent().parent().remove();
+            }else{
+                alert("不能再删除了，至少留一个");
+            }
+        }
+        
+        function goUpdata(id) {
+            $.getJSON("specification_getById",{"id":id},function (result) {
+               // alert(JSON.stringify(result));
+                $("#spec_name_update").val(result.specification.spec_name);
+                $("#id_update").val(result.specification.id);
+                var options = result.specificationOptions;
+                $("#specification_tbody_update").text("");
+                for (var i = 0; i < options.length ; i++) {
+                    var option = options[i];
+                    $("#specification_tbody_update").append("<tr><td><input class=\"form-control\" value='"+option.option_name+"' name=\"option_name\" placeholder=\"规格选项\"></td><td><input class=\"form-control\" value='"+option.orders+"' name=\"orders\" placeholder=\"排序\"></td><td><button type=\"button\" class=\"btn btn-default\" title=\"删除\" onclick=\"deleteoption_update(this)\"><i class=\"fa fa-trash-o\"></i>删除</button></td></tr>");
+                }
+
+            })
+        }
+        
+        function updaSpecification(id) {
+            var data = $("#updateForm").serialize();
+            $.ajax({
+                url: "specification_update",
+                data: data,
+                type: "post",
+                dataType: "json",
+                success: function (result) {
+                    if (result.code == 200) {
+                        alert(result.message);
+                        location.href = "specification_page";
+                    } else {
+                        alert(result.message);
+                    }
+                }
+            })
+        }
+
 
     </script>
 
@@ -98,7 +151,7 @@
                 <td th:text="${specification.id}">1</td>
                 <td th:text="${specification.spec_name}">网络制式</td>
                 <td class="text-center">
-                    <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal">修改
+                    <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" th:onclick="|goUpdata(${specification.id})|" data-target="#editModal">修改
                     </button>
                 </td>
             </tr>
@@ -131,92 +184,75 @@
 </div>
 <!-- /.box-body -->
 
-
 <!-- 编辑窗口 -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">规格编辑</h3>
-            </div>
-            <div class="modal-body">
+<form action="#" id="updateForm" method="post">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">规格编辑</h3>
+                </div>
+                <div class="modal-body">
 
-                <table class="table table-bordered table-striped" width="800px">
-                    <tr>
-                        <td>规格名称</td>
-                        <td><input class="form-control" placeholder="规格名称"></td>
-                    </tr>
-                </table>
+                    <table class="table table-bordered table-striped" width="800px">
+                        <tr>
+                            <td>规格名称</td>
+                            <td>
+                                <input type="hidden" name="id" id="id_update">
+                                <input class="form-control" name="spec_name" id="spec_name_update" placeholder="规格名称"></td>
+                        </tr>
+                    </table>
 
-                <!-- 规格选项 -->
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default" title="新建"><i class="fa fa-file-o"></i> 新增规格选项
-                    </button>
+                    <!-- 规格选项 -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" onclick="addOptions_update()" title="新建"><i class="fa fa-file-o"></i> 新增规格选项
+                        </button>
+
+                    </div>
+
+                    <table class="table table-bordered table-striped table-hover dataTable">
+                        <thead>
+                        <tr>
+
+
+                            <th class="sorting">规格选项</th>
+                            <th class="sorting">排序</th>
+                            <th class="sorting">操作</th>
+                        </thead>
+                        <tbody id="specification_tbody_update">
+                        <!--<tr>
+
+                            <td>
+                                <input class="form-control" name="option_name" placeholder="规格选项">
+                            </td>
+                            <td>
+                                <input class="form-control" name="orders" placeholder="排序">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default" title="删除" onclick="specification_del_tr(this)"><i class="fa fa-trash-o"></i>
+                                    删除
+                                </button>
+                            </td>
+                        </tr>
+                      -->
+                        </tbody>
+                    </table>
+
 
                 </div>
-
-                <table class="table table-bordered table-striped table-hover dataTable">
-                    <thead>
-                    <tr>
-
-
-                        <th class="sorting">规格选项</th>
-                        <th class="sorting">排序</th>
-                        <th class="sorting">操作</th>
-                    </thead>
-                    <tbody>
-                    <tr>
-
-                        <td>
-                            <input class="form-control" placeholder="规格选项">
-                        </td>
-                        <td>
-                            <input class="form-control" placeholder="排序">
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-
-                        <td>
-                            <input class="form-control" placeholder="规格选项">
-                        </td>
-                        <td>
-                            <input class="form-control" placeholder="排序">
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-
-                        <td>
-                            <input class="form-control" placeholder="规格选项">
-                        </td>
-                        <td>
-                            <input class="form-control" placeholder="排序">
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
-                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <div class="modal-footer">
+                    <button class="btn btn-success" data-dismiss="modal" aria-hidden="true"
+                            onclick="updaSpecification();">更新
+                    </button>
+                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+</form>
+
 <!-- 新增窗口 -->
 <form action="#" id="addForm" method="post">
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -237,7 +273,7 @@
 
                     <!-- 规格选项 -->
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default" onclick="specification_add_tr()" title="新建"><i class="fa fa-file-o"></i> 新增规格选项
+                        <button type="button" class="btn btn-default" onclick="addOptions_add()" title="新建"><i class="fa fa-file-o"></i> 新增规格选项
                         </button>
 
                     </div>
@@ -261,7 +297,7 @@
                                 <input class="form-control" name="orders" placeholder="排序">
                             </td>
                             <td>
-                                <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i>
+                                <button type="button" class="btn btn-default" title="删除" onclick="specification_del_tr(this)"><i class="fa fa-trash-o"></i>
                                     删除
                                 </button>
                             </td>
@@ -275,7 +311,7 @@
                                 <input class="form-control" name="orders" placeholder="排序">
                             </td>
                             <td>
-                                <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i>
+                                <button type="button" class="btn btn-default" title="删除" onclick="specification_del_tr(this)"><i class="fa fa-trash-o"></i>
                                     删除
                                 </button>
                             </td>
@@ -289,7 +325,7 @@
                                 <input class="form-control" name="orders" placeholder="排序">
                             </td>
                             <td>
-                                <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i>
+                                <button type="button" class="btn btn-default" title="删除" onclick="specification_del_tr(this)"><i class="fa fa-trash-o"></i>
                                     删除
                                 </button>
                             </td>

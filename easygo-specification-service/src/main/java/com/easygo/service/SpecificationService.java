@@ -1,7 +1,7 @@
 package com.easygo.service;
 
 import com.easygo.pojo.Specification;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -14,4 +14,8 @@ import java.util.Map;
 public interface SpecificationService {
     public Integer totalCount(Map<String, Object> map);
     public List<Specification> getSpecificationPage(Map<String, Object> map);
+    public Integer addSpecification(Specification specification);
+    public Integer addSpecificationTransaction( String spec_name, String[] option_name,Integer[] orders);
+    public Specification getSpecificationById(Integer id);
+    public Integer updateSpecificationTransaction(Integer id, String spec_name,String[] option_name,Integer[] orders);
 }

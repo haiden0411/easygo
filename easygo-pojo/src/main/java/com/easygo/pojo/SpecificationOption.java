@@ -18,7 +18,7 @@ public class SpecificationOption implements Serializable {
     private static final long serialVersionUID = -2089964877041763283L;
     private Integer id;
     private String option_name;
-    private Specification specifiction;
+    private Specification specification;
     private Integer orders;
     private Integer del;
 }

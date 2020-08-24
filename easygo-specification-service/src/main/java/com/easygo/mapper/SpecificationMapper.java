@@ -15,4 +15,7 @@ import java.util.Map;
 public interface SpecificationMapper {
     public Integer totalCount(Map<String,Object> map);
     public List<Specification> getSpecificationPage(Map<String,Object> map);
+    public Integer addSpecification(Specification specification);
+    public Specification getSpecificationById(Integer id);
+    public Integer updateSpecification(Specification specification);
 }
