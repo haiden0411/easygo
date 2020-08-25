@@ -18,6 +18,8 @@
         <module>easygo-ad-service</module>
         <module>easygo-protal-web</module>
         <module>easygo-specification-service</module>
+        <module>easygo-typetemplate</module>
+        <module>easygo-typetemplate-service</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

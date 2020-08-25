@@ -1,0 +1,37 @@
+server:
+  port: 9007
+mybatis:
+  type-aliases-package: com.easygo.pojo
+  mapper-locations: classpath:/mappers/*.xml
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql://192.168.1.109:3307/easygodb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+      min-idle: 5
+      max-active: 20
+      max-wait: 10000
+      initial-size: 5
+      username: root
+      password: root
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      validation-query: SELECT 1 FROM DUAL
+      validation-query-timeout: 30000
+      test-on-borrow: true
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  application:
+    name: easygo-typetemplate-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.1.108:9001/eureka
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    instance-id: easygo-typetemplate-service-9007

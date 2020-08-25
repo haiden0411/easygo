@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="easygo-commons" />
+        <module name="easygo-typetemplate-service" />
         <module name="easygo-pojo" />
         <module name="easygo-specification-service" />
         <module name="easygo-protal-web" />
@@ -30,6 +31,7 @@
       <module name="easygo-pojo" options="-parameters" />
       <module name="easygo-protal-web" options="-parameters" />
       <module name="easygo-specification-service" options="-parameters" />
+      <module name="easygo-typetemplate-service" options="-parameters" />
     </option>
   </component>
 </project>

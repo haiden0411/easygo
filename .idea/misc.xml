@@ -16,6 +16,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/easygo-typetemplate/pom.xml" />
         <option value="$PROJECT_DIR$/easygo-user/pom.xml" />
       </set>
     </option>
