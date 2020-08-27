@@ -66,4 +66,14 @@ public class SpecificationController {
         return count;
     }
 
+    @RequestMapping("/specification_getSpecs")
+    public List<Specification> getSpecifications(){
+        return specificationService.getSpecifications();
+    }
+
+    @RequestMapping("/specification_getSpecById")
+    public Specification getSpecById(@RequestParam Integer id){
+        return  specificationService.getSpecificationById(id);
+    }
+
 }

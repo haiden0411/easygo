@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,4 +30,10 @@ public interface SpecificationClient {
 
     @RequestMapping("/specification_update")
     public Integer specification_update(@RequestParam Integer id,@RequestParam String spec_name,@RequestParam String[] option_name,@RequestParam Integer[] orders);
+
+    @RequestMapping("/specification_getSpecs")
+    public List<Specification> getSpecifications();
+
+    @RequestMapping("/specification_getSpecById")
+    public Specification getSpecById(@RequestParam Integer id);
 }

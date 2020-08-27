@@ -29,4 +29,14 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
     public List<TypeTemplate> getTypeTemplatePage(Map<String, Object> map) {
         return typeTemplateMapper.getTypeTemplatePage(map);
     }
+
+    @Override
+    public Integer addTypeTemplate(TypeTemplate typeTemplate) {
+        return typeTemplateMapper.addTypeTemplate(typeTemplate);
+    }
+
+    @Override
+    public TypeTemplate getTypeTemplateById(Integer id) {
+        return typeTemplateMapper.getTypeTemplateById(id);
+    }
 }

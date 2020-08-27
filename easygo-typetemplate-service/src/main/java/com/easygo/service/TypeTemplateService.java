@@ -13,4 +13,6 @@ import java.util.Map;
 public interface TypeTemplateService {
     public Integer getTotalcount(Map<String,Object> map);
     public List<TypeTemplate> getTypeTemplatePage(Map<String,Object> map);
+    public Integer addTypeTemplate(TypeTemplate typeTemplate);
+    public TypeTemplate getTypeTemplateById(Integer id);
 }

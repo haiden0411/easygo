@@ -18,4 +18,5 @@ public interface SpecificationService {
     public Integer addSpecificationTransaction( String spec_name, String[] option_name,Integer[] orders);
     public Specification getSpecificationById(Integer id);
     public Integer updateSpecificationTransaction(Integer id, String spec_name,String[] option_name,Integer[] orders);
+    public List<Specification> getSpecifications();
 }

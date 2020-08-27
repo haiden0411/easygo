@@ -24,6 +24,9 @@
         update tb_specification set spec_name = #{spec_name} where id = #{id}
     </update>
 
+    <select id="getSpecifications" resultType="com.easygo.pojo.Specification">
+        select * from tb_specification where del = 0
+    </select>
 
 
 </mapper>

@@ -18,4 +18,5 @@ public interface SpecificationMapper {
     public Integer addSpecification(Specification specification);
     public Specification getSpecificationById(Integer id);
     public Integer updateSpecification(Specification specification);
+    public List<Specification> getSpecifications();
 }

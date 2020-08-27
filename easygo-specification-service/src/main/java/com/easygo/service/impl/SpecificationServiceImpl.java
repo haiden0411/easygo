@@ -84,4 +84,9 @@ public class SpecificationServiceImpl implements SpecificationService {
         return 1;
     }
 
+    @Override
+    public List<Specification> getSpecifications() {
+        return specificationMapper.getSpecifications();
+    }
+
 }
