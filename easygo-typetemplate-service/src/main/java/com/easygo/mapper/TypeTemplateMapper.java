@@ -17,4 +17,5 @@ public interface TypeTemplateMapper {
     public List<TypeTemplate> getTypeTemplatePage(Map<String,Object> map);
     public Integer addTypeTemplate(TypeTemplate typeTemplate);
     public TypeTemplate getTypeTemplateById(Integer id);
+    public Integer updateTypeTemplate(TypeTemplate typeTemplate);
 }

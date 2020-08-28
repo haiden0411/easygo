@@ -7,6 +7,7 @@ import com.easygo.pojo.*;
 import com.easygo.utils.JsonUtils;
 import com.easygo.utils.MessageResults;
 import com.easygo.utils.PageUtils;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -92,5 +93,48 @@ public class TypeTemplateController {
             results = new MessageResults(500,"新增失败");
         }
         return results;
+    }
+    //更新时的数据回显
+    @RequestMapping("/typeTemplate_goUpdate")
+    @ResponseBody
+    public TypeTemplate goUpdataTypeTemplate(Integer id) {
+        TypeTemplate typeTemplate = typeTemplateClient.getTypeTemplateById(id);
+
+        //数据库查询所有品牌
+        List<Brand> brands = brandClient.getBrands();
+        //所有的规格
+        List<Specification> specifications = specificationClient.getSpecifications();
+
+        //brand转Json
+        List<JsonObject> brands_template = JsonUtils.string2Obj(typeTemplate.getBrand_ids(), new TypeReference<List<JsonObject>>() {
+        });
+        List<JsonObject> specs_template = JsonUtils.string2Obj(typeTemplate.getSpec_ids(), new TypeReference<List<JsonObject>>() {
+        });
+
+        //比较两个集合，找出相同的Id,设置flag为true;
+        for (Brand brand : brands) {
+            for (JsonObject jsonObject : brands_template) {
+                if (brand.getId().equals(jsonObject.getId())) {
+                    brand.setFlag(true);
+                }
+            }
+        }
+
+        for (Specification specification : specifications) {
+            for (JsonObject jsonObject : specs_template) {
+                if (specification.getId().equals(jsonObject.getId())) {
+                    specification.setFlag(true);
+                }
+            }
+        }
+        //把集合再转成json
+        String brand_str = JsonUtils.obj2String(brands);
+        String specs_str = JsonUtils.obj2String(specifications);
+
+        typeTemplate.setBrand_ids(brand_str);
+        typeTemplate.setSpec_ids(specs_str);
+
+        return typeTemplate;
+
     }
 }

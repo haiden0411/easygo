@@ -21,5 +21,5 @@ public class Brand implements Serializable{
     private String image;
     private String first_char;
     private Integer del;
-
+    private Boolean flag;
 }

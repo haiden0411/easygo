@@ -19,4 +19,5 @@ public class Specification implements Serializable {
     private Integer id;
     private String spec_name;
     private Integer del;
+    private Boolean flag;
 }
