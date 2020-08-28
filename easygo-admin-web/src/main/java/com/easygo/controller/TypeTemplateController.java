@@ -61,7 +61,7 @@ public class TypeTemplateController {
 
     @RequestMapping("/typeTemplate_add")
     @ResponseBody
-    public MessageResults addtypeTemplate(String name,Integer[] brandIds,Integer[] specIds,String[] customAttrs){
+    public MessageResults addtypeTemplate(@RequestParam String name,@RequestParam Integer[] brandIds,@RequestParam Integer[] specIds,@RequestParam String[] customAttrs){
         //转成json存入数据库
         TypeTemplate typeTemplate = new TypeTemplate();
 
@@ -97,7 +97,7 @@ public class TypeTemplateController {
     //更新时的数据回显
     @RequestMapping("/typeTemplate_goUpdate")
     @ResponseBody
-    public TypeTemplate goUpdataTypeTemplate(Integer id) {
+    public Map<String,Object> goUpdataTypeTemplate(Integer id) {
         TypeTemplate typeTemplate = typeTemplateClient.getTypeTemplateById(id);
 
         //数据库查询所有品牌
@@ -110,6 +110,10 @@ public class TypeTemplateController {
         });
         List<JsonObject> specs_template = JsonUtils.string2Obj(typeTemplate.getSpec_ids(), new TypeReference<List<JsonObject>>() {
         });
+
+        List<CustomAttributeItemsObject> customs = JsonUtils.string2Obj(typeTemplate.getCustom_attribute_items(), new TypeReference<List<CustomAttributeItemsObject>>() {
+        });
+
 
         //比较两个集合，找出相同的Id,设置flag为true;
         for (Brand brand : brands) {
@@ -127,14 +131,46 @@ public class TypeTemplateController {
                 }
             }
         }
-        //把集合再转成json
-        String brand_str = JsonUtils.obj2String(brands);
-        String specs_str = JsonUtils.obj2String(specifications);
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",typeTemplate.getId());
+        map.put("name",typeTemplate.getName());
+        map.put("brands",brands);
+        map.put("specifications",specifications);
+        map.put("customs",customs);
+        return map;
+    }
 
-        typeTemplate.setBrand_ids(brand_str);
-        typeTemplate.setSpec_ids(specs_str);
+    @RequestMapping("/typeTemplate_update")
+    @ResponseBody
+    public MessageResults updateTypeTemplate(@RequestParam Integer id,@RequestParam String name,@RequestParam Integer[] brandIds,@RequestParam Integer[] specIds,@RequestParam String[] customsAttrs){
 
-        return typeTemplate;
+        TypeTemplate typeTemplate = new TypeTemplate();
 
+        //brand转Json
+        List<JsonObject> brands = Stream.of(brandIds).map(brandClient::getBrandById).map(brand -> new JsonObject(brand.getId(), brand.getName())).collect(Collectors.toList());
+
+        List<JsonObject> specs = Stream.of(specIds).map(specificationClient::getSpecById).map(spec -> new JsonObject(spec.getId(), spec.getSpec_name())).collect(Collectors.toList());
+
+        List<CustomAttributeItemsObject> cutoms = Stream.of(customsAttrs).map(s -> new CustomAttributeItemsObject(s)).collect(Collectors.toList());
+
+
+        String brans_str = JsonUtils.obj2String(brands);
+        String spec_str = JsonUtils.obj2String(specs);
+        String customs_str = JsonUtils.obj2String(cutoms);
+
+        typeTemplate.setCustom_attribute_items(customs_str);
+        typeTemplate.setName(name);
+        typeTemplate.setSpec_ids(spec_str);
+        typeTemplate.setBrand_ids(brans_str);
+        typeTemplate.setId(id);
+        System.out.println("typeTemplate:"+typeTemplate);
+        Integer count = typeTemplateClient.updateTypeTemplate(typeTemplate);
+        MessageResults results = null;
+        if (count>0) {
+            results = new MessageResults(200,"更新成功");
+        }else{
+            results = new MessageResults(500,"更新失败");
+        }
+        return results;
     }
 }

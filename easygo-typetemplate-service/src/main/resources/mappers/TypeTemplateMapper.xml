@@ -20,7 +20,7 @@
     </select>
 
     <update id="updateTypeTemplate">
-        update tb_type_template set name = #{name},brand_ids=#{brand_ids},spec_ids=#{spec_ids}.custom_attribute_items = #{custom_attribute_items} where id = ${id}
+        update tb_type_template set name = #{name},brand_ids=#{brand_ids},spec_ids=#{spec_ids},custom_attribute_items = #{custom_attribute_items} where id = #{id}
     </update>
 
 </mapper>

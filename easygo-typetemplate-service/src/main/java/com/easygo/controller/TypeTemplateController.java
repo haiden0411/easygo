@@ -66,12 +66,22 @@ public class TypeTemplateController {
 
     @RequestMapping("/typeTemplate_add")
     public Integer addTypeTemplate(@RequestBody TypeTemplate typeTemplate){
-        System.out.println("服务器:"+typeTemplate);
        return  typeTemplateService.addTypeTemplate(typeTemplate);
+    }
+
+    /**
+     * 更新方法
+     * @param typeTemplate
+     * @return
+     */
+    @RequestMapping("/typeTemplate_update")
+    public Integer updateTypeTemplate(@RequestBody TypeTemplate typeTemplate){
+        return  typeTemplateService.updateTypeTemplate(typeTemplate);
     }
 
     @RequestMapping("/typeTemplate_getById")
     public TypeTemplate getTypeTemplateById(@RequestParam Integer id){
       return   typeTemplateService.getTypeTemplateById(id);
     }
+
 }

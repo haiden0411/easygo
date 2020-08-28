@@ -6,6 +6,7 @@ import com.easygo.service.TypeTemplateService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.Map;
 
@@ -38,5 +39,10 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
     @Override
     public TypeTemplate getTypeTemplateById(Integer id) {
         return typeTemplateMapper.getTypeTemplateById(id);
+    }
+
+    @Override
+    public Integer updateTypeTemplate(TypeTemplate typeTemplate) {
+        return typeTemplateMapper.updateTypeTemplate(typeTemplate);
     }
 }

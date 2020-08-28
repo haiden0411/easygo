@@ -31,9 +31,20 @@
 				alert("不能再删除了，至少留一个");
 			}
 		}
+		function delete_custom_updateform(btn) {
+			if ( $("#updateform_custom_tbody").find("tr").length>1){
+				$(btn).parent().parent().remove();
+			}else{
+				alert("不能再删除了，至少留一个");
+			}
+		}
 		//扩展属性新增
 		function addform_custom_attr_add() {
 			$("#addform_custom_tbody").append(" <tr><td><input class=\"form-control\" name=\"customsAttrs\" placeholder=\"属性名称\" ></td><td><button type=\"button\" onclick=\"delete_custom_addform(this)\" class=\"btn btn-default\"  title=\"删除\"><i class=\"fa fa-trash-o\"></i> 删除</button></td></tr>");
+		}
+		
+		function updateform_custom_attr_add() {
+			$("#updateform_custom_tbody").append(" <tr><td><input class=\"form-control\" name=\"customsAttrs\" placeholder=\"属性名称\" ></td><td><button type=\"button\" onclick=\"delete_custom_updateform(this)\" class=\"btn btn-default\"  title=\"删除\"><i class=\"fa fa-trash-o\"></i> 删除</button></td></tr>");
 		}
 		//回显规格与品牌
 		function getBrandsAndspecifications() {
@@ -61,7 +72,7 @@
 
 			})
 		}
-		
+		//新增
 		function addTypeTemplate() {
 			var data = $("#addForm").serialize();
 			$.ajax({
@@ -79,10 +90,81 @@
 				}
 			})
 		}
+
+		//更新
+		function updateTypeTemplate() {
+			var data = $("#updateForm").serialize();
+			$.ajax({
+				url: "typeTemplate_update",
+				data: data,
+				type: "post",
+				dataType: "json",
+				success: function (result) {
+					if (result.code == 200) {
+						alert(result.message);
+						location.href = "typeTemplate_page";
+					} else {
+						alert(result.message);
+					}
+				}
+			})
+		}
 	function goUpdateTemplate(id) {
 		$.getJSON("typeTemplate_goUpdate",{"id":id},function (result) {
-			alert(JSON.stringify(result));
+			//alert(JSON.stringify(result));
+			$("#update_id").val(result.id);
+			$("#update_name").val(result.name);
+			//
+			var brands = result.brands;
+			$("#brands_update").text("");
+			for(var i = 0;i<brands.length;i++){
+				if ((i + 1) % 6 == 0) {
+						//判断是否选中
+					 if(brands[i].flag==true){
+						 $("#brands_update").append("<input type=\"checkbox\" name=\"brandIds\" checked value=\"" + brands[i].id + "\"/>&nbsp;" + brands[i].name + "<br/>");
+					 }else {
+						 $("#brands_update").append("<input type=\"checkbox\" name=\"brandIds\" value=\"" + brands[i].id + "\"/>&nbsp;" + brands[i].name + "<br/>");
+					 }
+				} else {
+					if(brands[i].flag==true){
+						$("#brands_update").append("<input type=\"checkbox\" name=\"brandIds\" checked value=\"" + brands[i].id + "\"/>&nbsp;" + brands[i].name + "&nbsp;&nbsp;");
+					}else{
+						$("#brands_update").append("<input type=\"checkbox\" name=\"brandIds\"  value=\"" + brands[i].id + "\"/>&nbsp;" + brands[i].name + "&nbsp;&nbsp;");
+					}
+				}
+			}
+
+			var specs = result.specifications;
+			$("#specs_update").text("");
+			for(var i = 0;i<specs.length;i++){
+				if ((i + 1) % 6 == 0) {
+
+					if(specs[i].flag==true){
+						$("#specs_update").append("<input type=\"checkbox\" name=\"specIds\" checked value=\"" + specs[i].id + "\"/>&nbsp;" + specs[i].spec_name + "<br/>");
+					}else {
+						$("#specs_update").append("<input type=\"checkbox\" name=\"specIds\"  value=\"" + specs[i].id + "\"/>&nbsp;" + specs[i].spec_name + "<br/>");
+					}
+
+				} else {
+					if(specs[i].flag==true){
+						$("#specs_update").append("<input type=\"checkbox\" name=\"specIds\" checked value=\"" + specs[i].id + "\"/>&nbsp;" + specs[i].spec_name + "&nbsp;&nbsp;");
+					}else{
+
+						$("#specs_update").append("<input type=\"checkbox\" name=\"specIds\" value=\"" + specs[i].id + "\"/>&nbsp;" + specs[i].spec_name + "&nbsp;&nbsp;");
+					}
+
+				}
+			}
+			//扩展属性
+			var customs = result.customs;
+			$("#updateform_custom_tbody").text("");
+			for (var i = 0; i < customs.length; i++) {
+				$("#updateform_custom_tbody").append(" <tr><td><input class=\"form-control\" name=\"customsAttrs\" placeholder=\"属性名称\"  value='"+customs[i].text+"'></td><td><button type=\"button\" onclick=\"delete_custom_updateform(this)\" class=\"btn btn-default\"  title=\"删除\"><i class=\"fa fa-trash-o\"></i> 删除</button></td></tr>");
+			}
 		})
+
+
+
 	}
 
 
@@ -252,7 +334,10 @@
 					  <table class="table table-bordered table-striped"  width="800px">
 						  <tr>
 							  <td>商品类型</td>
-							  <td><input  name="name" class="form-control" placeholder="商品类型">  </td>
+							  <td>
+								  <input type="hidden" name="id" id="update_id">
+								  <input  name="name" id="update_name" class="form-control" placeholder="商品类型">
+							  </td>
 						  </tr>
 						  <tr>
 							  <td>关联品牌</td>
@@ -269,18 +354,14 @@
 							  <td>扩展属性</td>
 							  <td>
 								  <div class="btn-group">
-									  <button type="button" class="btn btn-default" onclick="addform_custom_attr_add()" title="新增扩展属性"><i class="fa fa-file-o"></i> 新增扩展属性</button>
+									  <button type="button" class="btn btn-default" onclick="updateform_custom_attr_add()" title="新增扩展属性"><i class="fa fa-file-o"></i> 新增扩展属性</button>
 
 								  </div>
 								  <table class="table table-bordered table-striped"  width="800px">
 									  <tbody id="updateform_custom_tbody">
 									  <tr>
-										  <td><input class="form-control" name="customAttrs" placeholder="属性名称" ></td>
+										  <td><input class="form-control" name="customsAttrs" placeholder="属性名称" ></td>
 										  <td><button type="button" onclick="delete_custom_updateform(this)" class="btn btn-default"  title="删除"><i class="fa fa-trash-o"></i> 删除</button></td>
-									  </tr>
-									  <tr>
-										  <td><input class="form-control" name="customAttrs" placeholder="属性名称" ></td>
-										  <td><button type="button" onclick="delete_custom_updateform(this)" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button></td>
 									  </tr>
 									  </tbody>
 								  </table>
@@ -292,7 +373,7 @@
 
 				  </div>
 				  <div class="modal-footer">
-					  <button class="btn btn-success" data-dismiss="modal" onclick="updateTypeTemplate()" aria-hidden="true">新增</button>
+					  <button class="btn btn-success" data-dismiss="modal" onclick="updateTypeTemplate()" aria-hidden="true">更新</button>
 					  <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 				  </div>
 			  </div>

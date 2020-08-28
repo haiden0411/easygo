@@ -20,6 +20,9 @@ public interface TypeTemplateClient {
     @RequestMapping("/typeTemplate_add")
     public Integer addTypeTemplate(@RequestBody TypeTemplate typeTemplate);
 
+    @RequestMapping("/typeTemplate_update")
+    public Integer updateTypeTemplate(@RequestBody TypeTemplate typeTemplate);
+
     @RequestMapping("/typeTemplate_getById")
     public TypeTemplate getTypeTemplateById(@RequestParam Integer id);
 
