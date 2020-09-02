@@ -19,6 +19,7 @@
         <module>easygo-protal-web</module>
         <module>easygo-specification-service</module>
         <module>easygo-typetemplate-service</module>
+        <module>easygo-itemcat-service</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

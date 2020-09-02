@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="easygo-itemcat-service" />
         <module name="easygo-commons" />
         <module name="easygo-typetemplate-service" />
         <module name="easygo-pojo" />
@@ -28,6 +29,7 @@
       <module name="easygo-brand-service" options="-parameters" />
       <module name="easygo-commons" options="-parameters" />
       <module name="easygo-eureka" options="-parameters" />
+      <module name="easygo-itemcat-service" options="-parameters" />
       <module name="easygo-pojo" options="-parameters" />
       <module name="easygo-protal-web" options="-parameters" />
       <module name="easygo-specification-service" options="-parameters" />
