@@ -14,6 +14,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableEurekaClient
 public class ItemServiceApp {
     public static void main(String[] args) {
+        System.out.println("商品分类服务启动："+9008);
         SpringApplication.run(ItemServiceApp.class,args);
     }
 }

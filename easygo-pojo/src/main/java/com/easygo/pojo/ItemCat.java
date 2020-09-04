@@ -11,10 +11,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ItemCat implements Serializable {
   private static final long serialVersionUID = 6544497683564230035L;
-  private long id;
-  private long parentId;
+  private Integer id;
+  private Integer parentId;
   private String name;
-  private long typeId;
-  private long del;
+  private Integer typeId;
+  private Integer del;
   private TypeTemplate typeTemplate;
 }

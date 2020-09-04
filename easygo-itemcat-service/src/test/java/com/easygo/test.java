@@ -40,4 +40,12 @@ public class test {
         List<ItemCat> items = mapper.getItemCatsByPage(map);
         items.forEach(System.out::println);
     }
+
+    public static void main(String[] args) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("aa-");
+        sb.append("bb-");
+        sb.append("cc-");
+        System.out.println(sb.toString());
+    }
 }

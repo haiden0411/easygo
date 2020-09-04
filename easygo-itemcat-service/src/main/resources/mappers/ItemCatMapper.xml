@@ -97,7 +97,7 @@
   </update>
   
   <select id="getTotalCount" resultType="integer">
-        select count(1) from tb_item_cat where del = 0 and parent_id = ${parent_id}
+        select count(1) from tb_item_cat where del = 0 and parent_id = ${parentId}
   </select>
 
   <select id="getItemCatsByPage" resultMap="ItemCatMap" >

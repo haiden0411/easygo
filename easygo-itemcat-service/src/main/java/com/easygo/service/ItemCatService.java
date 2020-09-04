@@ -13,4 +13,5 @@ import java.util.Map;
 public interface ItemCatService {
     public Integer getTotalCount(Map<String,Object> map);
     public List<ItemCat> getItemCatsByPage(Map<String,Object> map);
+    ItemCat getItemCatById(Integer id);
 }

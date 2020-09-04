@@ -6,6 +6,7 @@ import com.easygo.service.ItemCatService;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ import java.util.Map;
  */
 @Service
 public class ItemCatServiceImpl implements ItemCatService {
-    @Mapper
+    @Resource
     ItemCatMapper itemCatMapper;
     @Override
     public Integer getTotalCount(Map<String, Object> map) {
@@ -26,5 +27,10 @@ public class ItemCatServiceImpl implements ItemCatService {
     @Override
     public List<ItemCat> getItemCatsByPage(Map<String, Object> map) {
         return itemCatMapper.getItemCatsByPage(map);
+    }
+
+    @Override
+    public ItemCat getItemCatById(Integer id) {
+        return itemCatMapper.getItemCatById(id);
     }
 }
