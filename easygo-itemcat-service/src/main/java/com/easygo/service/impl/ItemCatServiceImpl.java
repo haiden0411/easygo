@@ -33,4 +33,19 @@ public class ItemCatServiceImpl implements ItemCatService {
     public ItemCat getItemCatById(Integer id) {
         return itemCatMapper.getItemCatById(id);
     }
+
+    @Override
+    public Integer addItemCat(ItemCat itemCat) {
+        return itemCatMapper.addItemCat(itemCat);
+    }
+
+    @Override
+    public Integer updateItemCat(ItemCat itemCat) {
+        return itemCatMapper.updateItemCat(itemCat);
+    }
+
+    @Override
+    public List<ItemCat> getItemCats() {
+        return itemCatMapper.getItemCats();
+    }
 }

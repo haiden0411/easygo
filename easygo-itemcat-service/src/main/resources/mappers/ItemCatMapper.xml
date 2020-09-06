@@ -12,6 +12,7 @@
   <resultMap id="ItemCatMap" type="ItemCat">
     <id property="id" column="id" />
     <result column="name" property="name"/>
+    <result column="parent_id" property="parentId" />
     <result column="del" property="del" />
    <association property="typeTemplate" javaType="TypeTemplate">
     <id column="type_id" property="id" />
@@ -22,22 +23,13 @@
   <sql id="Base_Column_List">
     id, parent_id, `name`, type_id, del
   </sql>
-  <select id="getItemCatById" parameterType="integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_item_cat
-    where id = #{id,jdbcType=BIGINT}
+  <select id="getItemCatById" resultMap="ItemCatMap">
+   select a.*,b.`name` as 'typename' from tb_item_cat a inner join tb_type_template b on a.type_id = b.id and a.del = 0 and a.id = #{id}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="integer">
     delete from tb_item_cat
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="ItemCat" useGeneratedKeys="true">
-    insert into tb_item_cat (parent_id, `name`, type_id, 
-      del)
-    values (#{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{typeId,jdbcType=BIGINT}, 
-      #{del,jdbcType=INTEGER})
-  </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="ItemCat" useGeneratedKeys="true">
     insert into tb_item_cat
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -87,21 +79,30 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="ItemCat">
-    update tb_item_cat
-    set parent_id = #{parentId,jdbcType=BIGINT},
-      `name` = #{name,jdbcType=VARCHAR},
-      type_id = #{typeId,jdbcType=BIGINT},
-      del = #{del,jdbcType=INTEGER}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+
   
   <select id="getTotalCount" resultType="integer">
-        select count(1) from tb_item_cat where del = 0 and parent_id = ${parentId}
+        select count(1) from tb_item_cat where del = 0 and parent_id = #{parentId}
   </select>
 
   <select id="getItemCatsByPage" resultMap="ItemCatMap" >
     select a.*,b.`name` as 'typename' from tb_item_cat a inner join tb_type_template b on a.type_id = b.id and a.del = 0 and a.parent_id = #{parentId} order by a.id desc limit #{pageStart},#{pageSize}
+  </select>
+
+  <insert id="addItemCat">
+    insert into tb_item_cat values (null,#{parentId},#{name},#{typeTemplate.id},0)
+  </insert>
+
+  <update id="updateItemCat">
+    update tb_item_cat
+    set `name` = #{name},
+      type_id = #{typeTemplate.id},
+      del = 0
+    where id = #{id}
+  </update>
+
+  <select id="getItemCats" resultType="com.easygo.pojo.ItemCat">
+    select id,parent_id as 'parentId',name from tb_item_cat where del = 0
   </select>
 
 </mapper>

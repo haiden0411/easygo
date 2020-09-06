@@ -6,9 +6,7 @@ import com.easygo.service.ItemCatService;
 import com.easygo.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,4 +38,20 @@ public class ItemCatController {
     public ItemCat getItemCatById(@RequestParam Integer id) {
         return itemCatService.getItemCatById(id);
     }
+
+    @RequestMapping("/itemcat_add")
+    public Integer itemcat_add(@RequestBody ItemCat itemCat){
+        return itemCatService.addItemCat(itemCat);
+    }
+
+    @RequestMapping("/itemcat_update")
+    public Integer itemcat_update(@RequestBody ItemCat itemCat){
+        return itemCatService.updateItemCat(itemCat);
+    }
+
+    @RequestMapping("/itemcat_all")
+    public List<ItemCat> getItemCats(){
+        return itemCatService.getItemCats();
+    }
+
 }

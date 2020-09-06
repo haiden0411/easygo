@@ -84,4 +84,9 @@ public class TypeTemplateController {
       return   typeTemplateService.getTypeTemplateById(id);
     }
 
+    @RequestMapping("/typeTemplate_all")
+    public List<TypeTemplate> getAllTemplates(){
+        return typeTemplateService.getAllTemplates();
+    }
+
 }

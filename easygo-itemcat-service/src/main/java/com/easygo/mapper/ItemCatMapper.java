@@ -11,19 +11,20 @@ import java.util.Map;
 public interface ItemCatMapper {
     Integer deleteByPrimaryKey(Integer id);
 
-    Integer insert(ItemCat record);
-
     Integer insertSelective(ItemCat record);
 
     ItemCat getItemCatById(Integer id);
 
     Integer updateByPrimaryKeySelective(ItemCat record);
 
-    Integer updateByPrimaryKey(ItemCat record);
-
     public Integer getTotalCount(Map<String,Object> map);
 
     public List<ItemCat> getItemCatsByPage(Map<String,Object> map);
 
+    public Integer addItemCat(ItemCat itemCat);
+
+    public Integer updateItemCat(ItemCat itemCat);
+
+    public List<ItemCat> getItemCats();
 
 }

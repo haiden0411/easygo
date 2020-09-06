@@ -16,4 +16,5 @@ public interface TypeTemplateService {
     public Integer addTypeTemplate(TypeTemplate typeTemplate);
     public TypeTemplate getTypeTemplateById(Integer id);
     public Integer updateTypeTemplate(TypeTemplate typeTemplate);
+    public  List<TypeTemplate> getAllTemplates();
 }

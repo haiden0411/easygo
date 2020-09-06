@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 /**
  * Author：胡灯
  * Date：2020-08-25 22:57
@@ -26,4 +28,6 @@ public interface TypeTemplateClient {
     @RequestMapping("/typeTemplate_getById")
     public TypeTemplate getTypeTemplateById(@RequestParam Integer id);
 
+    @RequestMapping("/typeTemplate_all")
+    public List<TypeTemplate> getAllTemplates();
 }

@@ -25,6 +25,97 @@
 			$("#searchForm").prop("action", "itemcat_page?pageIndex=1&pageSize=5");
 			$("#searchForm").submit();
 		}
+
+		function getTypeTemplates() {
+			$.getJSON("typeTemplate_all",null,function (result) {
+				$("#select_type_add").text("");
+				for (var i = 0; i < result.length; i++) {
+					$("#select_type_add").append("<option value='"+result[i].id+"'>"+result[i].name+"</option>");
+				}
+				var lis = $("#type_parent li");
+				var str = "";
+				for (var i = 0; i < lis.length; i++) {
+					var t = $(lis[i]).text();
+					if(i == lis.length-1){
+						str = str + t;
+					}else {
+						str = str+t+">>";
+					}
+				}
+				$("#typetemplate_add").text(str);
+			})
+		}
+
+		function addItemCat(){
+			var data = $("#addForm").serialize();
+			$.ajax({
+				url:"itemcat_add",
+				data:data,
+				type:"post",
+				dataType:"json",
+				success:function (result) {
+					if(result.code ==200){
+						alert(result.message);
+						location.href="itemcat_page";
+					}else{
+						alert(result.message);
+					}
+				}
+			})
+		}
+
+		function updateItemCat(){
+			var data = $("#updateForm").serialize();
+			$.ajax({
+				url:"itemcat_update",
+				data:data,
+				type:"post",
+				dataType:"json",
+				success:function (result) {
+					if(result.code ==200){
+						alert(result.message);
+						location.href="itemcat_page";
+					}else{
+						alert(result.message);
+					}
+				}
+			})
+		}
+
+		function goUpdate(id) {
+			//加载普通字段
+			$.getJSON("itemcat_goUpdate",{"id":id},function (result) {
+				var name = result.name;
+				var id = result.id;
+				var type_id = result.typeTemplate.id;
+				$("#id_update").val(id);
+				$("#name_update").val(name);
+
+				//回显模板下拉框
+				$.getJSON("typeTemplate_all",null,function (result) {
+					$("#select_type_update").text("");
+					for (var i = 0; i < result.length; i++) {
+						$("#select_type_update").append("<option value='"+result[i].id+"'>"+result[i].name+"</option>");
+					}
+					//选择下拉列表杠
+					$("#select_type_update").val(type_id);
+
+				})
+
+				var lis = $("#type_parent li");
+				var str = "";
+				for (var i = 0; i < lis.length; i++) {
+					var t = $(lis[i]).text();
+					if(i == lis.length-1){
+						str = str + t;
+					}else {
+						str = str+t+">>";
+					}
+				}
+				$("#typetemplate_update").text(str);
+
+			})
+		}
 	</script>
     
 </head>
@@ -40,8 +131,7 @@
                     </div>
 
                     <div class="box-body">
-                  			 <ol class="breadcrumb" th:utext="${str}">
-	                        </ol>
+								 <ol class="breadcrumb" th:utext="${str}" id="type_parent"> </ol>
 
                         <!-- 数据表格 -->
                         <div class="table-box">
@@ -50,7 +140,7 @@
                             <div class="pull-left">
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
+                                        <button type="button" class="btn btn-default" title="新建" onclick="getTypeTemplates();" data-toggle="modal" data-target="#addModal" ><i class="fa fa-file-o"></i> 新建</button>
                                         <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
                                         <button type="button" class="btn btn-default" title="刷新" ><i class="fa fa-check"></i> 刷新</button>
                                        
@@ -81,7 +171,7 @@
 									      <td th:text="${itemcat.typeTemplate.name}"></td>
 		                                  <td class="text-center">		                                     
 		                                      <button type="button" class="btn bg-olive btn-xs" th:if="${flag}==false" th:onclick="|queryChilds(${itemcat.id})|" >查询下级</button>
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>                                           
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#updateModal" th:onclick="|goUpdate(${itemcat.id})|" >修改</button>
 		                                  </td>
 			                          </tr>
 			                      </tbody>
@@ -111,50 +201,92 @@
 						
                         </div>
                         <!-- 数据表格 /-->
-                        
-                        
-                        
-                        
                      </div>
                     <!-- /.box-body -->
-              
-                                
-<!-- 编辑窗口 -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- 新增窗口 -->
+  <form action="#" method="post" id="addForm">
+  <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" >
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModalLabel">商品分类编辑</h3>
+			<h3 id="myModalLabel1">商品分类编辑</h3>
 		</div>
 		<div class="modal-body">							
 			
 			<table class="table table-bordered table-striped"  width="800px">
 				<tr>
 		      		<td>上级商品分类</td>
-		      		<td>
-		      		   珠宝 >>  银饰
+		      		<td id="typetemplate_add">
 		      		</td>
 		      	</tr>
 		      	<tr>
 		      		<td>商品分类名称</td>
-		      		<td><input  class="form-control" placeholder="商品分类名称">  </td>
+		      		<td>
+						<input type="hidden" name="parentId" th:value="${parentId}">
+						<input  class="form-control" name="name" placeholder="商品分类名称">
+					</td>
 		      	</tr>			  
 		      	<tr>
 		      		<td>类型模板</td>
-		      		<td>	      		
-		      			<input select2 config="options['type_template']" placeholder="商品类型模板" class="form-control" type="text"/>
+		      		<td>
+						<select id="select_type_add" name="typeTemplate.id" class="form-control">
+						</select>
 		      		</td>		      		      		
 		      	</tr>		      	
 			 </table>				
 			
 		</div>
 		<div class="modal-footer">						
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" onclick="addItemCat();">新增</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 	  </div>
 	</div>
 </div>
+  </form>
+
+  <!-- 编辑窗口 -->
+  <form action="#" method="post" id="updateForm">
+	  <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" >
+			  <div class="modal-content">
+				  <div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					  <h3 id="myModalLabel">商品分类编辑</h3>
+				  </div>
+				  <div class="modal-body">
+
+					  <table class="table table-bordered table-striped"  width="800px">
+						  <tr>
+							  <td>上级商品分类</td>
+							  <td id="typetemplate_update">
+							  </td>
+						  </tr>
+						  <tr>
+							  <td>商品分类名称</td>
+							  <td>
+								  <input type="hidden" name="id" id="id_update"  >
+								  <input  class="form-control" name="name" id="name_update" placeholder="商品分类名称">
+							  </td>
+						  </tr>
+						  <tr>
+							  <td>类型模板</td>
+							  <td>
+								  <select id="select_type_update" name="typeTemplate.id" class="form-control">
+								  </select>
+							  </td>
+						  </tr>
+					  </table>
+
+				  </div>
+				  <div class="modal-footer">
+					  <button class="btn btn-success" data-dismiss="modal" onclick="updateItemCat();" aria-hidden="true"  >更新</button>
+					  <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+				  </div>
+			  </div>
+		  </div>
+	  </div>
+  </form>
 </body>
 </html>

@@ -45,4 +45,9 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
     public Integer updateTypeTemplate(TypeTemplate typeTemplate) {
         return typeTemplateMapper.updateTypeTemplate(typeTemplate);
     }
+
+    @Override
+    public List<TypeTemplate> getAllTemplates() {
+        return typeTemplateMapper.getAllTemplates();
+    }
 }

@@ -14,7 +14,6 @@ public class ItemCat implements Serializable {
   private Integer id;
   private Integer parentId;
   private String name;
-  private Integer typeId;
   private Integer del;
   private TypeTemplate typeTemplate;
 }

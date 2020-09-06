@@ -163,7 +163,6 @@ public class TypeTemplateController {
         typeTemplate.setSpec_ids(spec_str);
         typeTemplate.setBrand_ids(brans_str);
         typeTemplate.setId(id);
-        System.out.println("typeTemplate:"+typeTemplate);
         Integer count = typeTemplateClient.updateTypeTemplate(typeTemplate);
         MessageResults results = null;
         if (count>0) {
@@ -172,5 +171,11 @@ public class TypeTemplateController {
             results = new MessageResults(500,"更新失败");
         }
         return results;
+    }
+
+    @RequestMapping("/typeTemplate_all")
+    @ResponseBody
+    public List<TypeTemplate> getAllTemplates(){
+        return typeTemplateClient.getAllTemplates();
     }
 }

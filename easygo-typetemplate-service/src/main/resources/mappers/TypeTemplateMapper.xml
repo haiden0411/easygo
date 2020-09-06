@@ -11,6 +11,10 @@
         select * from tb_type_template where del = 0 and name  like #{name} order by id desc limit #{pageStart},#{pageSize}
     </select>
 
+    <select id="getAllTemplates" resultType="com.easygo.pojo.TypeTemplate">
+        select * from tb_type_template where del = 0
+    </select>
+
     <insert id="addTypeTemplate">
         insert into tb_type_template values (null,#{name},#{spec_ids},#{brand_ids},#{custom_attribute_items},0)
     </insert>

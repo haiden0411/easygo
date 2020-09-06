@@ -4,6 +4,7 @@ import com.easygo.pojo.ItemCat;
 import com.easygo.utils.PageUtils;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,4 +21,10 @@ public interface ItemCatClient {
 
     @RequestMapping("/itemcat_getById")
     public ItemCat getItemCatById(@RequestParam Integer id);
+
+    @RequestMapping("/itemcat_add")
+    public Integer itemcat_add(@RequestBody ItemCat itemCat);
+
+    @RequestMapping("/itemcat_update")
+    public Integer itemcat_update(@RequestBody ItemCat itemCat);
 }
