@@ -19,4 +19,4 @@ eureka:
     prefer-ip-address: true
     ip-address: 127.0.0.1
     instance-id: easygo-admin-web-9002
-FILE_SERVER_URL: http://192.168.1.109:8080/
+FILE_SERVER_URL: http://192.168.1.120:8080/

@@ -6,6 +6,9 @@ import com.easygo.pojo.Content;
 import com.easygo.pojo.ItemCat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +30,9 @@ public class IndexController {
     @Autowired
     ItemCatClient itemCatClient;
 
+    @Autowired
+    RedisTemplate<String,Object> redisTemplate;
+
     @RequestMapping({"/","/index"})
     public String index(Model model){
         getContens(model);
@@ -37,7 +43,16 @@ public class IndexController {
 
     private  void getItemCats(Model model)
     {
-        List<ItemCat> allItemcats = itemCatClient.getItemCats();
+        //加缓存
+        redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
+        List<ItemCat> allItemcats = (ArrayList<ItemCat>) redisTemplate.opsForValue().get("allItemcats_key");
+        if (allItemcats == null) {
+            System.out.println("缓存中没有分类数据,查询数据库");
+            allItemcats = itemCatClient.getItemCats();
+            redisTemplate.opsForValue().set("allItemcats_key",allItemcats);
+        }else {
+            System.out.println("缓存中有分类数据,不需要查询数据库");
+        }
         List<ItemCat> itemcats_first = extractItemCats("1", allItemcats);
         List<ItemCat> itemcats_second = extractItemCats("2", allItemcats,itemcats_first);
         List<ItemCat> itemcats_third = extractItemCats("3", allItemcats,itemcats_second);
@@ -81,9 +96,26 @@ public class IndexController {
     }
 
     private void getContens(Model model){
-        List<Content> lunbo_contents = contentClient.getContentsByCategoryId(1);
+        redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
+        List<Content> lunbo_contents = (ArrayList<Content>) redisTemplate.opsForValue().get("lunbo_contents_key");
+        List<Content> shenxian_contents = (ArrayList<Content>) redisTemplate.opsForValue().get("shenxian_contents_key");
+        if (lunbo_contents == null) {
+            System.out.println("缓存中没有轮播图数据,查询数据库");
+            lunbo_contents = contentClient.getContentsByCategoryId(1);
+            redisTemplate.opsForValue().set("lunbo_contents_key",lunbo_contents);
+        }else {
+            System.out.println("缓存中有轮播图数据，不用管数据库了");
+        }
+
+        if (shenxian_contents == null) {
+            System.out.println("缓存中没有生鲜数据,查询数据库");
+            shenxian_contents = contentClient.getContentsByCategoryId(10);
+            redisTemplate.opsForValue().set("shenxian_contents_key",shenxian_contents);
+        }else {
+            System.out.println("缓存中有生鲜数据，不用管数据库了");
+        }
+
         model.addAttribute("lunbo_contents",lunbo_contents);
-        List<Content> shenxian_contents = contentClient.getContentsByCategoryId(10);
         model.addAttribute("shenxian_contents",shenxian_contents);
     }
 }
