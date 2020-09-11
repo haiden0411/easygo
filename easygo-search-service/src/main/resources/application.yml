@@ -1,0 +1,22 @@
+server:
+  port: 9009
+
+spring:
+  application:
+    name: easygo-search-service
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 192.168.1.120:9300
+      properties:
+        transport:
+          tcp:
+            connect_timeout: 120s
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.1.108:9001/eureka
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    instance-id: easygo-search-service-9009
