@@ -21,6 +21,7 @@
         <module>easygo-typetemplate-service</module>
         <module>easygo-itemcat-service</module>
         <module>easygo-search-service</module>
+        <module>easygo-goods-service</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

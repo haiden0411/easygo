@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easygo.mapper.GoodsMapper">
+    <select id="getAllGoods" resultType="com.easygo.pojo.Goods">
+        select * from tb_goods where is_marketable = #{is_marketable} and is_delete = 0
+    </select>
+</mapper>
+    
