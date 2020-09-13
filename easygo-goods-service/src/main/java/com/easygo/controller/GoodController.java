@@ -3,6 +3,7 @@ package com.easygo.controller;
 import com.easygo.pojo.Goods;
 import com.easygo.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import java.util.List;
  * Description：<描述>
  */
 @RestController
+@Scope("prototype")
 public class GoodController {
 
     @Autowired

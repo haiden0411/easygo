@@ -7,13 +7,13 @@ import com.easygo.pojo.ItemCat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Author：胡灯
@@ -47,11 +47,9 @@ public class IndexController {
         redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
         List<ItemCat> allItemcats = (ArrayList<ItemCat>) redisTemplate.opsForValue().get("allItemcats_key");
         if (allItemcats == null) {
-            System.out.println("缓存中没有分类数据,查询数据库");
             allItemcats = itemCatClient.getItemCats();
-            redisTemplate.opsForValue().set("allItemcats_key",allItemcats);
+            redisTemplate.opsForValue().set("allItemcats_key",allItemcats,10, TimeUnit.MINUTES);
         }else {
-            System.out.println("缓存中有分类数据,不需要查询数据库");
         }
         List<ItemCat> itemcats_first = extractItemCats("1", allItemcats);
         List<ItemCat> itemcats_second = extractItemCats("2", allItemcats,itemcats_first);
@@ -100,19 +98,15 @@ public class IndexController {
         List<Content> lunbo_contents = (ArrayList<Content>) redisTemplate.opsForValue().get("lunbo_contents_key");
         List<Content> shenxian_contents = (ArrayList<Content>) redisTemplate.opsForValue().get("shenxian_contents_key");
         if (lunbo_contents == null) {
-            System.out.println("缓存中没有轮播图数据,查询数据库");
             lunbo_contents = contentClient.getContentsByCategoryId(1);
-            redisTemplate.opsForValue().set("lunbo_contents_key",lunbo_contents);
+            redisTemplate.opsForValue().set("lunbo_contents_key",lunbo_contents,10, TimeUnit.MINUTES);
         }else {
-            System.out.println("缓存中有轮播图数据，不用管数据库了");
         }
 
         if (shenxian_contents == null) {
-            System.out.println("缓存中没有生鲜数据,查询数据库");
             shenxian_contents = contentClient.getContentsByCategoryId(10);
-            redisTemplate.opsForValue().set("shenxian_contents_key",shenxian_contents);
+            redisTemplate.opsForValue().set("shenxian_contents_key",shenxian_contents,10, TimeUnit.MINUTES);
         }else {
-            System.out.println("缓存中有生鲜数据，不用管数据库了");
         }
 
         model.addAttribute("lunbo_contents",lunbo_contents);

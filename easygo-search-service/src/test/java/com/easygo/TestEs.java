@@ -3,7 +3,7 @@ package com.easygo;
 import com.easygo.api.GoodsClient;
 import com.easygo.pojo.Goods;
 import com.easygo.serivce.GoodsService;
-import org.elasticsearch.index.query.QueryBuilder;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,8 +72,9 @@ public class TestEs {
 
     @Test
     public void testUpdateDocumentById(){
-        Goods goods = goodsService.getDocuemntById(149187842867926L);
-        goods.setGoods_name("华为手机aaaa");
+        Goods goods = goodsService.getDocuemntById(149187842867986L);
+        goods.setGoods_name("华为手机bbbb");
+        goods.setPrice(250.00);
         goodsService.updateDocumentById(goods);
         System.out.println("更新成功");
     }
@@ -100,10 +101,29 @@ public class TestEs {
         System.out.println("当前页面的数据为：");
         List<Goods> contents = page.getContent();
         contents.forEach(System.out::println);
-
-
     }
 
+    @Test
+    public void testQeury2(){
+        int pageIndex = 1;
+        int pageSize = 3;
+        String keyWords = "火爆";
+        NativeSearchQueryBuilder builder = new NativeSearchQueryBuilder();
+        if (StringUtils.isNotEmpty(keyWords)) {
+            builder.withQuery(QueryBuilders.multiMatchQuery(keyWords,"goods_name","caption"));
+        }
+        builder.withPageable(PageRequest.of(pageIndex-1,pageSize));
+        NativeSearchQuery searchQuery = builder.build();
+        AggregatedPage<Goods> page = elasticsearchTemplate.queryForPage(searchQuery, Goods.class);
+        System.out.println("当前页码："+pageIndex);
+        System.out.println("页面大小："+pageSize);
+        System.out.println("总页面："+page.getTotalPages());
+        System.out.println("总条法:"+page.getTotalElements());
+        System.out.println("当前页面的数据为：");
+        List<Goods> contents = page.getContent();
+        contents.forEach(System.out::println);
+
+    }
 
 
 }
