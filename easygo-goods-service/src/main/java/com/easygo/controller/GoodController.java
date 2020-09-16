@@ -26,4 +26,8 @@ public class GoodController {
     public List<Goods> getAllGoods(@RequestParam Integer is_marketable) {
         return goodsService.getAllGoods(is_marketable);
     }
+    @RequestMapping("/goods_getGoodByI")
+    public Goods getAllGoods(@RequestParam Long id) {
+        return goodsService.getGoodsById(id);
+    }
 }

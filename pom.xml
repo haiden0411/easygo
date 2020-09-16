@@ -22,6 +22,7 @@
         <module>easygo-itemcat-service</module>
         <module>easygo-search-service</module>
         <module>easygo-goods-service</module>
+        <module>easygo-staticpage-service</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

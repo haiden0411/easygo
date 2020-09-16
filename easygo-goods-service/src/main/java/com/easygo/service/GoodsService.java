@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface GoodsService {
     public List<Goods> getAllGoods(Integer is_marketable);
+    public Goods getGoodsById(Long id);
 }

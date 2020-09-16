@@ -1,6 +1,7 @@
 package com.easygo.mapper;
 
 import com.easygo.pojo.Goods;
+import com.easygo.pojo.GoodsDesc;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,7 +13,6 @@ import java.util.List;
  */
 
 @Mapper
-public interface GoodsMapper {
-    public List<Goods> getAllGoods(Integer is_marketable);
-    public Goods getGoodsById(Long id);
+public interface GoodsDescMapper {
+    public GoodsDesc getGoodsDescById(Long id);
 }

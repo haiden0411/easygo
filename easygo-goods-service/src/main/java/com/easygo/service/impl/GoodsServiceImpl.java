@@ -21,4 +21,9 @@ public class GoodsServiceImpl implements GoodsService {
     public List<Goods> getAllGoods(Integer is_marketable) {
         return goodsMapper.getAllGoods(is_marketable);
     }
+
+    @Override
+    public Goods getGoodsById(Long id) {
+        return goodsMapper.getGoodsById(id);
+    }
 }

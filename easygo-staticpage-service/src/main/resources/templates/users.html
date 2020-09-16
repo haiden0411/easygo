@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>对象模板</title>
+</head>
+<body>
+    <h1 th:each="u:${users}">
+        <span th:text="${u.id}"></span>
+        <span th:text="${u.name}"></span>
+        <span th:text="${u.hobby}"></span>
+    </h1>
+</body>
+</html>
