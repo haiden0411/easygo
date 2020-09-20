@@ -73,6 +73,18 @@
             <version>2.9.0</version>
         </dependency>
 
+        <!--短信发送依赖包-->
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+        </dependency>
+
     </dependencies>
 
     <!-- SpringCloud的依赖 -->

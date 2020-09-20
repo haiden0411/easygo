@@ -15,5 +15,6 @@
     <file url="file://$PROJECT_DIR$/easygo-specification-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/easygo-staticpage-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/easygo-typetemplate-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/easygo-users-service/src/main/java" charset="UTF-8" />
   </component>
 </project>

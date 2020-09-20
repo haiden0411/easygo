@@ -26,4 +26,5 @@ eureka:
   instance:
     prefer-ip-address: true
     ip-address: 127.0.0.1
-    instance-id: easygo-admin-web-9005
+    instance-id: easygo-protal-web-9005
+salt: JavaNz
