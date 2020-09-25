@@ -54,9 +54,9 @@ public class StringUtil {
 	}
 
 	public static void main(String[] args) {
-		String passowrd="admin123";
+		String passowrd="123";
 		String salt="bruce";
-		String s = StringUtil.MD5Encode(passowrd+salt);
+		String s = StringUtil.MD5Encode(passowrd).toLowerCase();
 		System.out.println("加密之后:"+s); //21F970400A1419576823E5BB2DD7B4A6 ----> admin123bruce
 		//MD5碰撞？
 		//加盐 salt
