@@ -158,6 +158,9 @@ public class ShiroCasConfiguration {
         filterChainMap.put(casConfig.getCasFilterUrlPattern(), CAS_FILTER);//shiro集成cas后，首先添加该规则
         //匿名访问
         filterChainMap.put("/page_regist", "anon");
+        filterChainMap.put("/cart_show", "anon");
+        filterChainMap.put("/cart_delete", "anon");
+        filterChainMap.put("/cart_add", "anon");
         filterChainMap.put("/**", "authc");
         factoryBean.setFilterChainDefinitionMap(filterChainMap);
     }

@@ -26,4 +26,9 @@ public class ItemController {
         return itemService.getItemsByGoodsId(id);
     }
 
+    @RequestMapping("/item_getById")
+    public Item getItemById(@RequestParam Long id){
+        return itemService.getItemById(id);
+    }
+
 }

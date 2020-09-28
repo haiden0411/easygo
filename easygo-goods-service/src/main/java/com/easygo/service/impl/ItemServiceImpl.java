@@ -21,4 +21,9 @@ public class ItemServiceImpl implements ItemService {
     public List<Item> getItemsByGoodsId(Long id) {
         return itemMapper.getItemsByGoodsId(id);
     }
+
+    @Override
+    public Item getItemById(Long id) {
+        return itemMapper.getItemById(id);
+    }
 }

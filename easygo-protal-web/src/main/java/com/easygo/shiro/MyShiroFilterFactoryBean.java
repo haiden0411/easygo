@@ -95,7 +95,7 @@ public class MyShiroFilterFactoryBean extends ShiroFilterFactoryBean {
             String str = request.getRequestURI().toLowerCase();
             boolean flag = true;
             int idx = 0;
-            if ((idx = str.indexOf(".")) > 0) {
+            if ((idx = str.lastIndexOf(".")) > 0) {
                 str = str.substring(idx);
                 if (ignoreExt.contains(str.toLowerCase())) {
                     flag = false;

@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface ItemService {
     public List<Item> getItemsByGoodsId(Long id);
+    public Item getItemById(Long id);
 }

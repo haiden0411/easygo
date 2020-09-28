@@ -6,5 +6,8 @@
     <select id="getItemsByGoodsId" resultType="com.easygo.pojo.Item">
         select * from tb_item where goods_id = #{id}
     </select>
+    <select id="getItemById" resultType="com.easygo.pojo.Item">
+        select * from tb_item where id = #{id}
+    </select>
 </mapper>
     

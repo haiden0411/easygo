@@ -13,4 +13,5 @@ import java.util.List;
 @Mapper
 public interface ItemMapper {
     public List<Item> getItemsByGoodsId(Long id);
+    public Item getItemById(Long id);
 }
