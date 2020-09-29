@@ -10,24 +10,26 @@
         <module name="easygo-search-service" />
         <module name="easygo-users-service" />
         <module name="easygo-staticpage-service" />
-        <module name="easygo-brand-service" />
+        <module name="easygo-ad-service" />
         <module name="easygo-protal-web" />
         <module name="easygo-admin-web" />
         <module name="easygo-pojo" />
         <module name="easygo-eureka" />
+        <module name="easygo-admin-service" />
         <module name="easygo-itemcat-service" />
         <module name="easygo-commons" />
         <module name="easygo-specification-service" />
         <module name="easygo-typetemplate-service" />
         <module name="easygo-goods-service" />
-        <module name="easygo-ad-service" />
-        <module name="easygo-admin-service" />
+        <module name="easygo-brand-service" />
+        <module name="easygo-address-service" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="easygo-ad-service" options="-parameters" />
+      <module name="easygo-address-service" options="-parameters" />
       <module name="easygo-admin-service" options="-parameters" />
       <module name="easygo-admin-web" options="-parameters" />
       <module name="easygo-brand-service" options="-parameters" />
