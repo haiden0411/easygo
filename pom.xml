@@ -25,6 +25,7 @@
         <module>easygo-staticpage-service</module>
         <module>easygo-users-service</module>
         <module>easygo-address-service</module>
+        <module>easygo-order-serivce</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

@@ -23,6 +23,7 @@
         <module name="easygo-goods-service" />
         <module name="easygo-brand-service" />
         <module name="easygo-address-service" />
+        <module name="easygo-order-serivce" />
       </profile>
     </annotationProcessing>
   </component>
@@ -37,6 +38,7 @@
       <module name="easygo-eureka" options="-parameters" />
       <module name="easygo-goods-service" options="-parameters" />
       <module name="easygo-itemcat-service" options="-parameters" />
+      <module name="easygo-order-serivce" options="-parameters" />
       <module name="easygo-pojo" options="-parameters" />
       <module name="easygo-protal-web" options="-parameters" />
       <module name="easygo-search-service" options="-parameters" />
