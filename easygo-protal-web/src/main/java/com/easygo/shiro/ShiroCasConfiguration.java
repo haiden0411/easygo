@@ -161,6 +161,11 @@ public class ShiroCasConfiguration {
         filterChainMap.put("/cart_show", "anon");
         filterChainMap.put("/cart_delete", "anon");
         filterChainMap.put("/cart_add", "anon");
+        //测试阶段
+        filterChainMap.put("/pay", "anon");
+        filterChainMap.put("/queryPayStatus", "anon");
+        filterChainMap.put("/payFail", "anon");
+        filterChainMap.put("/paySuccess/**", "anon");
         filterChainMap.put("/**", "authc");
         factoryBean.setFilterChainDefinitionMap(filterChainMap);
     }
